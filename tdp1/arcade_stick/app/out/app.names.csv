@@ -1,0 +1,315 @@
+tdp1/arcade_stick/app/out/app.elf:100000f8 00000001 b FLAG_DOWN
+tdp1/arcade_stick/app/out/app.elf:100000f9 00000001 b FLAG_LEFT
+tdp1/arcade_stick/app/out/app.elf:100000fa 00000001 b FLAG_RIGHT
+tdp1/arcade_stick/app/out/app.elf:100000fb 00000001 b FLAG_UP
+tdp1/arcade_stick/app/out/app.elf:1a000520 00000004 t Gamepad_GetReport
+tdp1/arcade_stick/app/out/app.elf:1a000524 00000004 t Gamepad_SetReport
+tdp1/arcade_stick/app/out/app.elf:1a000528 00000004 t Gamepad_EpIN_Hdlr
+tdp1/arcade_stick/app/out/app.elf:100000fc 00000004 b heap_end.5864
+tdp1/arcade_stick/app/out/app.elf:1a003000 00000004 t InitClkStates
+tdp1/arcade_stick/app/out/app.elf:1a003004 00000074 t pinmuxing
+tdp1/arcade_stick/app/out/app.elf:1a0007b0 00000044 t Board_LED_Init
+tdp1/arcade_stick/app/out/app.elf:1a0007f4 00000040 t Board_TEC_Init
+tdp1/arcade_stick/app/out/app.elf:1a000834 00000040 t Board_GPIO_Init
+tdp1/arcade_stick/app/out/app.elf:1a000874 00000030 t Board_ADC_Init
+tdp1/arcade_stick/app/out/app.elf:1a0008a4 00000038 t Board_SPI_Init
+tdp1/arcade_stick/app/out/app.elf:1a0008dc 00000024 t Board_I2C_Init
+tdp1/arcade_stick/app/out/app.elf:1a00307c 00000008 t GpioButtons
+tdp1/arcade_stick/app/out/app.elf:1a003084 0000000c t GpioLeds
+tdp1/arcade_stick/app/out/app.elf:1a003090 00000012 t GpioPorts
+tdp1/arcade_stick/app/out/app.elf:1a0009c4 00000014 t Chip_SSP_GetClockIndex
+tdp1/arcade_stick/app/out/app.elf:1a0009d8 00000018 t Chip_SSP_GetPeriphClockIndex
+tdp1/arcade_stick/app/out/app.elf:10000048 00000038 d i2c
+tdp1/arcade_stick/app/out/app.elf:1a000af8 00000014 t Chip_ADC_GetClockIndex
+tdp1/arcade_stick/app/out/app.elf:1a000b0c 00000032 t getClkDiv
+tdp1/arcade_stick/app/out/app.elf:1a0030a8 00000048 t InitClkStates
+tdp1/arcade_stick/app/out/app.elf:1a000e1c 00000034 t Chip_USB_PllSetup
+tdp1/arcade_stick/app/out/app.elf:1a0030f0 00000014 t usbPLLSetup
+tdp1/arcade_stick/app/out/app.elf:1a000e98 000000a0 t pll_calc_divs
+tdp1/arcade_stick/app/out/app.elf:1a000f38 0000010c t pll_get_frac
+tdp1/arcade_stick/app/out/app.elf:1a001044 0000004c t Chip_Clock_FindBaseClock
+tdp1/arcade_stick/app/out/app.elf:1a0012b8 00000022 t Chip_Clock_GetDivRate
+tdp1/arcade_stick/app/out/app.elf:10000100 00000008 b audio_usb_pll_freq
+tdp1/arcade_stick/app/out/app.elf:1a003110 0000006c t periph_to_base
+tdp1/arcade_stick/app/out/app.elf:1a0014d4 0000002c t Chip_UART_GetIndex
+tdp1/arcade_stick/app/out/app.elf:1a00317c 00000008 t UART_BClock
+tdp1/arcade_stick/app/out/app.elf:1a003184 00000008 t UART_PClock
+tdp1/arcade_stick/app/out/app.elf:10000080 00000004 d ClockSpeed
+tdp1/arcade_stick/app/out/app.elf:1a0016ec 00000034 t gpioObtainPinInit
+tdp1/arcade_stick/app/out/app.elf:10000108 00000004 b callBackFuncParams
+tdp1/arcade_stick/app/out/app.elf:10000110 00000008 b tickCounter
+tdp1/arcade_stick/app/out/app.elf:10000118 00000004 b tickHookFunction
+tdp1/arcade_stick/app/out/app.elf:1a00327c 00000048 t lpcUarts
+tdp1/arcade_stick/app/out/app.elf:1a001bec 00000084 t CDC_ep0_override_hdlr
+tdp1/arcade_stick/app/out/app.elf:1a001c70 000000c0 t UCOM_bulk_hdlr
+tdp1/arcade_stick/app/out/app.elf:1a001d30 00000090 t UCOM_SetLineCode
+tdp1/arcade_stick/app/out/app.elf:1000011c 00000004 b g_defaultCdcHdlr
+tdp1/arcade_stick/app/out/app.elf:10000120 00000018 b g_uCOM
+tdp1/arcade_stick/app/out/app.elf:1a001e9c 00000014 t Keyboard_EpIN_Hdlr
+tdp1/arcade_stick/app/out/app.elf:1a001eb0 00000020 t Keyboard_UpdateReport
+tdp1/arcade_stick/app/out/app.elf:1a001ed0 00000048 t Keyboard_SetReport
+tdp1/arcade_stick/app/out/app.elf:1a001f18 00000040 t Keyboard_GetReport
+tdp1/arcade_stick/app/out/app.elf:10000138 00000010 b g_keyBoard
+tdp1/arcade_stick/app/out/app.elf:1a002090 00000010 t usbDeviceLpcInterruptPrioritySet
+tdp1/arcade_stick/app/out/app.elf:1a0020a0 00000028 t usbDeviceLpcInterruptInit
+tdp1/arcade_stick/app/out/app.elf:1a0020c8 00000098 t usbDeviceLpcInit
+tdp1/arcade_stick/app/out/app.elf:1000014c 00000004 b g_Ep0BaseHdlr
+tdp1/arcade_stick/app/out/app.elf:10000150 00000004 b g_ep0RxBusy
+tdp1/arcade_stick/app/out/app.elf:10000154 00000004 b g_hUsb
+tdp1/arcade_stick/app/out/app.elf:1a002780 00000048 t std
+tdp1/arcade_stick/app/out/app.elf:10000094 00000060 d impure_data
+tdp1/arcade_stick/app/out/app.elf:1a0033b4 t __init_array_end
+tdp1/arcade_stick/app/out/app.elf:1a0033b0 b __preinit_array_end
+tdp1/arcade_stick/app/out/app.elf:1a0033b0 t __init_array_start
+tdp1/arcade_stick/app/out/app.elf:1a0033b0 b __preinit_array_start
+tdp1/arcade_stick/app/out/app.elf:1a0010dc 0000001c T Chip_Clock_GetDividerSource
+tdp1/arcade_stick/app/out/app.elf:1a00064c 00000012 T _isatty_r
+tdp1/arcade_stick/app/out/app.elf:1a002b18 000000dc T _puts_r
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W TIMER2_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a00065e 0000000a T _lseek_r
+tdp1/arcade_stick/app/out/app.elf:1a000184 00000002 W DebugMon_Handler
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W RIT_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a000ba4 00000016 T Chip_ADC_DeInit
+tdp1/arcade_stick/app/out/app.elf:1a080000 A __top_MFlashA512
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W ADCHS_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a000114 T __section_table_start
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W FLASH_EEPROM_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W I2C0_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a0009ba 00000008 T __stdio_init
+tdp1/arcade_stick/app/out/app.elf:10000168 00000001 B __lock___atexit_recursive_mutex
+tdp1/arcade_stick/app/out/app.elf:1a000e50 00000034 T Chip_USB0_Init
+tdp1/arcade_stick/app/out/app.elf:1a002c5e 00000024 T __sseek
+tdp1/arcade_stick/app/out/app.elf:1a002830 00000070 T __sinit
+tdp1/arcade_stick/app/out/app.elf:1a002c8c 000000a4 T __swbuf_r
+tdp1/arcade_stick/app/out/app.elf:1a00017a 00000002 W HardFault_Handler
+tdp1/arcade_stick/app/out/app.elf:1a0027d4 0000002c T __sfmoreglue
+tdp1/arcade_stick/app/out/app.elf:1a000000 A __vectors_start__
+tdp1/arcade_stick/app/out/app.elf:1a000c6c 0000000c T Chip_ADC_SetResolution
+tdp1/arcade_stick/app/out/app.elf:1a002ee0 0000000c T __malloc_unlock
+tdp1/arcade_stick/app/out/app.elf:1a000338 0000000c T apagarTodos
+tdp1/arcade_stick/app/out/app.elf:1a001b44 0000002c T SysTick_Handler
+tdp1/arcade_stick/app/out/app.elf:1a00157c 00000040 T Chip_UART_SetBaud
+tdp1/arcade_stick/app/out/app.elf:10000169 00000001 B __lock___arc4random_mutex
+tdp1/arcade_stick/app/out/app.elf:1a0005a8 00000002 W initialise_monitor_handles
+tdp1/arcade_stick/app/out/app.elf:1a000300 0000001c T apagarPares
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W SDIO_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a000938 0000001c T Board_UARTGetChar
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W ATIMER_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a000186 00000002 W PendSV_Handler
+tdp1/arcade_stick/app/out/app.elf:1a000178 00000002 W NMI_Handler
+tdp1/arcade_stick/app/out/app.elf:1a0033bc R __exidx_end
+tdp1/arcade_stick/app/out/app.elf:1a000150 T __data_section_table_end
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W I2C1_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W UART1_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W GPIO5_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a001dc0 000000dc T cdcUartLpcInit
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W CAN1_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a0014b0 00000014 T Chip_Clock_EnablePLL
+tdp1/arcade_stick/app/out/app.elf:1a000642 0000000a T _fstat_r
+tdp1/arcade_stick/app/out/app.elf:53ff72e2 A __valid_user_code_checksum
+tdp1/arcade_stick/app/out/app.elf:1a0033bc R _etext
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W USB1_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W I2S0_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a002f3c 00000082 T USB_StringDescriptor
+tdp1/arcade_stick/app/out/app.elf:1a002038 0000000c T usbDeviceKeyboardPress
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W TIMER3_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a001374 0000000c T Chip_Clock_GetBaseClocktHz
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W UART0_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a0001a8 00000012 T bss_init
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W SGPIO_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a0027c8 0000000c T _cleanup_r
+tdp1/arcade_stick/app/out/app.elf:1a001470 00000040 T Chip_Clock_SetupPLL
+tdp1/arcade_stick/app/out/app.elf:1a0022f8 T __aeabi_uldivmod
+tdp1/arcade_stick/app/out/app.elf:10000174 ? _noinit
+tdp1/arcade_stick/app/out/app.elf:1a002bf4 00000010 T puts
+tdp1/arcade_stick/app/out/app.elf:10000160 00000004 B SystemCoreClock
+tdp1/arcade_stick/app/out/app.elf:1a001500 00000054 T Chip_UART_Init
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W ADC0_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a000b4c 00000018 T readAdcVal
+tdp1/arcade_stick/app/out/app.elf:1a002198 000000ec T usbDeviceInit
+tdp1/arcade_stick/app/out/app.elf:1a000180 00000002 W UsageFault_Handler
+tdp1/arcade_stick/app/out/app.elf:1a001424 0000004c T Chip_Clock_GetRate
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W GPIO6_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a002f1c 00000012 T USB_DeviceDescriptor
+tdp1/arcade_stick/app/out/app.elf:1a000738 0000006c T Board_SetupClocking
+tdp1/arcade_stick/app/out/app.elf:20008000 A __top_RamAHB32
+tdp1/arcade_stick/app/out/app.elf:1a002328 000002d0 T __udivmoddi4
+tdp1/arcade_stick/app/out/app.elf:1a0006e0 00000020 T _sbrk_r
+tdp1/arcade_stick/app/out/app.elf:1a003078 00000004 T ExtRateIn
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W IntDefaultHandler
+tdp1/arcade_stick/app/out/app.elf:1a000300 T __CRP_WORD_END__
+tdp1/arcade_stick/app/out/app.elf:1a000668 0000004e T _read_r
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W GPIO1_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a00217c 0000001a T find_IntfDesc
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W SSP0_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a0033b4 R __exidx_start
+tdp1/arcade_stick/app/out/app.elf:1000016a 00000001 B __lock___env_recursive_mutex
+tdp1/arcade_stick/app/out/app.elf:1a0002fc 00000004 T CRP_WORD
+tdp1/arcade_stick/app/out/app.elf:1a000b3e 0000000e T setStartMode
+tdp1/arcade_stick/app/out/app.elf:1000016b 00000001 B __lock___sinit_recursive_mutex
+tdp1/arcade_stick/app/out/app.elf:1a0033ac 00000004 T _global_impure_ptr
+tdp1/arcade_stick/app/out/app.elf:1a002968 00000048 T __libc_init_array
+tdp1/arcade_stick/app/out/app.elf:1a0019a0 000000b8 T adcInit
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W ADC1_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a000978 00000030 T Board_Init
+tdp1/arcade_stick/app/out/app.elf:1a000636 00000002 W _init
+tdp1/arcade_stick/app/out/app.elf:1a000114 T __data_section_table
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W RTC_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:10000174 B _ebss
+tdp1/arcade_stick/app/out/app.elf:1a000c78 0000002a T Chip_ADC_EnableChannel
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W TIMER0_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a0005ac 00000088 T Reset_Handler
+tdp1/arcade_stick/app/out/app.elf:1a001ac8 0000007c T tickInit
+tdp1/arcade_stick/app/out/app.elf:20010000 A __top_RamAHB_ETB16
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W SPI_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a000abc 00000038 T Chip_I2C_SetClockRate
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W LCD_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a001090 0000004c T Chip_Clock_EnableCrystal
+tdp1/arcade_stick/app/out/app.elf:1000016c 00000001 B __lock___malloc_recursive_mutex
+tdp1/arcade_stick/app/out/app.elf:1a000bba 00000008 T Chip_ADC_ReadValue
+tdp1/arcade_stick/app/out/app.elf:10008000 A __top_RamLoc32
+tdp1/arcade_stick/app/out/app.elf:1a00018a 0000001e T data_init
+tdp1/arcade_stick/app/out/app.elf:1a002058 00000038 T EP0_patch
+tdp1/arcade_stick/app/out/app.elf:1a000c1a 00000020 T Chip_ADC_SetStartMode
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W TIMER1_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a00334c 00000020 T __sf_fake_stderr
+tdp1/arcade_stick/app/out/app.elf:1a000a98 00000024 T Chip_I2C_Init
+tdp1/arcade_stick/app/out/app.elf:1a0029b4 00000002 T __retarget_lock_release_recursive
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W UART2_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a00124c 0000006c T Chip_Clock_GetMainPLLHz
+tdp1/arcade_stick/app/out/app.elf:1a00318c 000000e6 T gpioPinsInit
+tdp1/arcade_stick/app/out/app.elf:1a0009f0 00000012 T Chip_SSP_SetClockRate
+tdp1/arcade_stick/app/out/app.elf:1a002fbe 00000002 T Keyboard_ReportDescSize
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W GPIO2_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a002800 0000000c T __sfp_lock_acquire
+tdp1/arcade_stick/app/out/app.elf:1a0029c8 0000009c T _free_r
+tdp1/arcade_stick/app/out/app.elf:1a001a58 00000058 T adcRead
+tdp1/arcade_stick/app/out/app.elf:1a00134e 00000026 T Chip_Clock_GetBaseClock
+tdp1/arcade_stick/app/out/app.elf:1a0014c4 0000000e T Chip_Clock_GetPLLStatus
+tdp1/arcade_stick/app/out/app.elf:100000f8 B _bss
+tdp1/arcade_stick/app/out/app.elf:1a000bc2 00000036 T Chip_ADC_ReadStatus
+tdp1/arcade_stick/app/out/app.elf:1a000c3a 00000032 T Chip_ADC_SetSampleRate
+tdp1/arcade_stick/app/out/app.elf:1a000388 0000006c T checkForPressedKeys
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W I2S1_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a000a02 0000003e T Chip_SSP_SetBitRate
+tdp1/arcade_stick/app/out/app.elf:1a000af4 00000002 T Chip_GPIO_Init
+tdp1/arcade_stick/app/out/app.elf:1a0030a4 00000004 T OscRateIn
+tdp1/arcade_stick/app/out/app.elf:1a001b70 0000007c T uartInit
+tdp1/arcade_stick/app/out/app.elf:10000174 ? _end_noinit
+tdp1/arcade_stick/app/out/app.elf:10008000 A _vStackTop
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W SSP1_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a000178 T __bss_section_table_end
+tdp1/arcade_stick/app/out/app.elf:1a000638 0000000a T _close_r
+tdp1/arcade_stick/app/out/app.elf:1a001720 000001ac T gpioInit
+tdp1/arcade_stick/app/out/app.elf:1a002044 00000014 T usbDeviceKeyboardCheckKeysCallbackSet
+tdp1/arcade_stick/app/out/app.elf:1a000344 00000042 T Joystick_LeerDirs
+tdp1/arcade_stick/app/out/app.elf:1a002d30 000000dc T __swsetup_r
+tdp1/arcade_stick/app/out/app.elf:1a0025f8 00000002 W __aeabi_ldiv0
+tdp1/arcade_stick/app/out/app.elf:1a0028a0 0000008c T __sfp
+tdp1/arcade_stick/app/out/app.elf:1a001f58 0000009c T usbDeviceKeyboardInit
+tdp1/arcade_stick/app/out/app.elf:1a002824 0000000c T __sinit_lock_release
+tdp1/arcade_stick/app/out/app.elf:1a002c04 00000022 T __sread
+tdp1/arcade_stick/app/out/app.elf:1a002160 0000001c T USB0_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a0013f0 00000034 T Chip_Clock_Disable
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W GPIO3_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a002ed4 0000000c T __malloc_lock
+tdp1/arcade_stick/app/out/app.elf:1a000924 00000014 T Board_UARTPutChar
+tdp1/arcade_stick/app/out/app.elf:1a001554 00000028 T Chip_UART_Send
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W SCT_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a002708 00000078 T _fflush_r
+tdp1/arcade_stick/app/out/app.elf:1a00336c 00000020 T __sf_fake_stdin
+tdp1/arcade_stick/app/out/app.elf:1a0010f8 0000001c T Chip_Clock_GetDividerDivisor
+tdp1/arcade_stick/app/out/app.elf:1a0002fc T __CRP_WORD_START__
+tdp1/arcade_stick/app/out/app.elf:1a001ff4 00000044 T usbDeviceKeyboardTasks
+tdp1/arcade_stick/app/out/app.elf:1a0029b2 00000002 T __retarget_lock_acquire_recursive
+tdp1/arcade_stick/app/out/app.elf:1a0029b6 00000010 T memset
+tdp1/arcade_stick/app/out/app.elf:1a00017c 00000002 W MemManage_Handler
+tdp1/arcade_stick/app/out/app.elf:1a0003f4 0000012c T main
+tdp1/arcade_stick/app/out/app.elf:1a00052c 0000007c T usbDeviceGamepadInit
+tdp1/arcade_stick/app/out/app.elf:1a0029b0 00000002 T __retarget_lock_init_recursive
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W WDT_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:2000c000 A __top_RamAHB16
+tdp1/arcade_stick/app/out/app.elf:1008a000 A __top_RamLoc40
+tdp1/arcade_stick/app/out/app.elf:1a000182 00000002 W SVC_Handler
+tdp1/arcade_stick/app/out/app.elf:1a002c82 00000008 T __sclose
+tdp1/arcade_stick/app/out/app.elf:1a002a64 000000b4 T _malloc_r
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W GPIO7_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a001380 0000003c T Chip_Clock_EnableOpts
+tdp1/arcade_stick/app/out/app.elf:1a0009b2 00000008 T __stdio_getchar
+tdp1/arcade_stick/app/out/app.elf:1a002fc0 0000003f T Keyboard_ReportDescriptor
+tdp1/arcade_stick/app/out/app.elf:1a001114 000000b8 T Chip_Clock_GetClockInputHz
+tdp1/arcade_stick/app/out/app.elf:1a0011cc 00000080 T Chip_Clock_CalcMainPLLValue
+tdp1/arcade_stick/app/out/app.elf:1a002f30 0000000a T USB_DeviceQualifier
+tdp1/arcade_stick/app/out/app.elf:1a001698 00000038 T SystemInit
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W SPIFI_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W QEI_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a000150 T __bss_section_table
+tdp1/arcade_stick/app/out/app.elf:1a0018cc 0000006a T gpioWrite
+tdp1/arcade_stick/app/out/app.elf:1a000634 00000002 W _fini
+tdp1/arcade_stick/app/out/app.elf:1a000b64 00000040 T Chip_ADC_Init
+tdp1/arcade_stick/app/out/app.elf:10000164 00000004 B g_pUsbApi
+tdp1/arcade_stick/app/out/app.elf:1a000700 00000038 T Board_SetupMuxing
+tdp1/arcade_stick/app/out/app.elf:1a0015bc 000000dc T Chip_UART_SetBaudFDR
+tdp1/arcade_stick/app/out/app.elf:1a0006b6 00000028 T _write_r
+tdp1/arcade_stick/app/out/app.elf:10000088 00000008 D tickRateMS
+tdp1/arcade_stick/app/out/app.elf:1a000ca2 00000022 T Chip_ADC_SetBurstCmd
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W ETH_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:10000090 00000004 D _impure_ptr
+tdp1/arcade_stick/app/out/app.elf:1a0025fc 0000010c T __sflush_r
+tdp1/arcade_stick/app/out/app.elf:10000000 ? _end_uninit_RESERVED
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W CAN0_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:10000000 D _data
+tdp1/arcade_stick/app/out/app.elf:1a00031c 0000001c T apagarImpares
+tdp1/arcade_stick/app/out/app.elf:10000024 00000023 D USB_HsConfigDescriptor
+tdp1/arcade_stick/app/out/app.elf:10000174 B _pvHeapStart
+tdp1/arcade_stick/app/out/app.elf:1a000178 T __section_table_end
+tdp1/arcade_stick/app/out/app.elf:1a000a40 00000038 T Chip_SSP_Init
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W GINT0_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a002e0c 00000048 T __swhatbuf_r
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W DAC_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a000900 00000024 T Board_Debug_Init
+tdp1/arcade_stick/app/out/app.elf:1a0009a8 0000000a T __stdio_putchar
+tdp1/arcade_stick/app/out/app.elf:1a000bf8 00000022 T Chip_ADC_Int_SetChannelCmd
+tdp1/arcade_stick/app/out/app.elf:100000f4 D _edata
+tdp1/arcade_stick/app/out/app.elf:1a000a78 00000020 T Chip_I2C_EventHandler
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W M0SUB_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1000016d 00000001 B __lock___at_quick_exit_mutex
+tdp1/arcade_stick/app/out/app.elf:1a000cc4 00000158 T Chip_SetupCoreClock
+tdp1/arcade_stick/app/out/app.elf:10000000 00000023 D USB_FsConfigDescriptor
+tdp1/arcade_stick/app/out/app.elf:1a002c26 00000038 T __swrite
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W GPIO0_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a000000 00000040 T g_pfnVectors
+tdp1/arcade_stick/app/out/app.elf:1a00292c 0000003c T _fwalk_reent
+tdp1/arcade_stick/app/out/app.elf:1a000e84 00000014 T SystemCoreClockUpdate
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W DMA_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W EVRT_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1b080000 A __top_MFlashB512
+tdp1/arcade_stick/app/out/app.elf:1a00280c 0000000c T __sfp_lock_release
+tdp1/arcade_stick/app/out/app.elf:1a00338c 00000020 T __sf_fake_stdout
+tdp1/arcade_stick/app/out/app.elf:1a0025f8 00000002 W __aeabi_idiv0
+tdp1/arcade_stick/app/out/app.elf:1a002eec 00000002 T Gamepad_ReportDescSize
+tdp1/arcade_stick/app/out/app.elf:1a00017e 00000002 W BusFault_Handler
+tdp1/arcade_stick/app/out/app.elf:1000016e 00000001 B __lock___dd_hash_mutex
+tdp1/arcade_stick/app/out/app.elf:1a002e54 00000080 T __smakebuf_r
+tdp1/arcade_stick/app/out/app.elf:1000016f 00000001 B __lock___tz_mutex
+tdp1/arcade_stick/app/out/app.elf:1a0013bc 00000034 T Chip_Clock_Enable
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W UART3_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1000015c 00000004 B __malloc_sbrk_start
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W MCPWM_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a000954 00000024 T Board_LED_Set
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W M0APP_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a001936 00000068 T gpioRead
+tdp1/arcade_stick/app/out/app.elf:1a002284 00000074 T boardInit
+tdp1/arcade_stick/app/out/app.elf:10000158 00000004 B __malloc_free_list
+tdp1/arcade_stick/app/out/app.elf:10000148 00000004 B keyboardCheckKeysFunction
+tdp1/arcade_stick/app/out/app.elf:1a000040 000000d4 T g_pfnVendorVectors
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W GINT1_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:1a001ab0 00000018 T tickPowerSet
+tdp1/arcade_stick/app/out/app.elf:1a002ef0 00000029 T Gamepad_ReportDescriptor
+tdp1/arcade_stick/app/out/app.elf:1a001334 0000001a T Chip_Clock_EnableBaseClock
+tdp1/arcade_stick/app/out/app.elf:1a0012dc 00000058 T Chip_Clock_SetBaseClock
+tdp1/arcade_stick/app/out/app.elf:1a0016d0 0000001c T cyclesCounterInit
+tdp1/arcade_stick/app/out/app.elf:1a0001ba 00000002 W GPIO4_IRQHandler
+tdp1/arcade_stick/app/out/app.elf:10000170 00000001 B __lock___sfp_recursive_mutex
+tdp1/arcade_stick/app/out/app.elf:1a002818 0000000c T __sinit_lock_acquire
+tdp1/arcade_stick/app/out/app.elf:1a0007a4 0000000c T Board_SystemInit
