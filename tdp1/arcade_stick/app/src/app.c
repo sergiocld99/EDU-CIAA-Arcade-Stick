@@ -91,7 +91,7 @@ int main( void )
       Joystick_Direccion dirs[2];
       
       Joystick_LeerDirs(valorEjeX, valorEjeY, dirs);
-      apagarTodos();
+      // apagarTodos();
       
       FLAG_UP = 0;
       FLAG_DOWN = 0;
@@ -102,11 +102,11 @@ int main( void )
          case NONE:
             break;
          case LEFT:
-            Board_LED_Set(3, true);
+            // Board_LED_Set(3, true);
             FLAG_LEFT = 1;
             break;
          case RIGHT:
-            Board_LED_Set(4, true);
+            // Board_LED_Set(4, true);
             FLAG_RIGHT = 0;
             break;
          default:
@@ -117,11 +117,11 @@ int main( void )
          case NONE:
             break;
          case UP:
-            Board_LED_Set(0, true);
+            // Board_LED_Set(0, true);
             FLAG_UP = 1;
             break;
          case DOWN:
-            Board_LED_Set(1, true);
+            // Board_LED_Set(1, true);
             FLAG_DOWN = 1;
             break;
          default:
@@ -129,13 +129,20 @@ int main( void )
       }
       
       // Lectura del botón SW
+      /*
       if( !gpioRead( T_COL1 ) ){
          Board_LED_Set(5, true);
       } else Board_LED_Set(5, false);
+      */
       
-      usbDeviceGamepadPress(1);
+      usbDeviceGamepadPress(100);
       
-      usbDeviceGamepadTasks();
+      uint8_t sent = usbDeviceGamepadTasks();
+      if (sent) Board_LED_Toggle(4);
+      sleepUntilNextInterrupt();
+      
+      Board_LED_Toggle(5);
+      delay(200);
    }
 
    // NO DEBE LLEGAR NUNCA AQUI, debido a que a este programa se ejecuta

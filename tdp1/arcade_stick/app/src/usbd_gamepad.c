@@ -9,6 +9,8 @@
 
 // Cabecera del archivo
 #include "usbd_gamepad.h"
+// #include "usbd_keyboard_endpoints.h"
+#include "sapi_board.h"
 
 // Macros
 #define GAMEPAD_REPORT_SIZE 8
@@ -46,7 +48,8 @@ static Gamepad_Ctrl_T configuracionGamepad;
  ****************************************************************************/
 
 static void Gamepad_UpdateReport(){
-   memset(&configuracionGamepad.report[0], 0, 8);
+   // memset(&configuracionGamepad.report[0], 0, 8);
+   usbDeviceGamepadPress(64);
 }
 
 static ErrorCode_t Gamepad_GetReport(USBD_HANDLE_T hHid, USB_SETUP_PACKET *pSetup, uint8_t * *pBuffer, uint16_t *plength){
@@ -65,6 +68,7 @@ static ErrorCode_t Gamepad_SetReport(USBD_HANDLE_T hHid, USB_SETUP_PACKET *pSetu
 static ErrorCode_t Gamepad_EpIN_Hdlr(USBD_HANDLE_T hUsb, void *data, uint32_t event){
    // TODO
    configuracionGamepad.tx_busy = 0;
+   Board_LED_Toggle(3);
    
    return LPC_OK;
 }
@@ -113,19 +117,32 @@ ErrorCode_t usbDeviceGamepadInit(USBD_HANDLE_T hUsb, USB_INTERFACE_DESCRIPTOR *p
 }
 
 
-void usbDeviceGamepadTasks(void){
+uint8_t usbDeviceGamepadTasks(void){
    
    if (configuracionGamepad.tx_busy == 0){
-      configuracionGamepad.tx_busy = 1;
+      // configuracionGamepad.tx_busy = 1;
       
       /* update report based on board state */
-      Gamepad_UpdateReport();
-      USBD_API->hw->WriteEP( configuracionGamepad.hUsb, 0x81, &configuracionGamepad.report[0], GAMEPAD_REPORT_SIZE );
+      //Gamepad_UpdateReport();
+      //USBD_API->hw->WriteEP( configuracionGamepad.hUsb, HID_EP_IN, &configuracionGamepad.report[0], GAMEPAD_REPORT_SIZE );
+      return 1;
    }
    
+   return 0;
 }
 
 void usbDeviceGamepadPress( uint8_t key )
 {
+   configuracionGamepad.report[0] = (uint8_t) key;
+   configuracionGamepad.report[1] = (uint8_t) key;
+   configuracionGamepad.report[2] = (uint8_t) key;
    configuracionGamepad.report[3] = (uint8_t) key;
+   configuracionGamepad.report[4] = (uint8_t) key;
+   configuracionGamepad.report[5] = (uint8_t) key;
+   configuracionGamepad.report[6] = (uint8_t) key;
+   configuracionGamepad.report[7] = (uint8_t) key;
+   configuracionGamepad.report[8] = (uint8_t) key;
+   configuracionGamepad.report[9] = (uint8_t) key;
+   configuracionGamepad.report[10] = (uint8_t) key;
+   configuracionGamepad.report[11] = (uint8_t) key;
 }

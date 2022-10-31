@@ -10,7 +10,7 @@
 
 // Includes
 #include "lpc_app_usbd_cfg.h"
-#include "usbd_keyboard_endpoints.h"
+#include "usbd_gamepad.h"
 
 // Macros no definidas en sAPI (importado de TinyUSB)
 #define HID_PHYSICAL_MAX_N(x, n)                         HID_REPORT_ITEM(x, 4, 1, n)
@@ -47,15 +47,19 @@ const uint8_t Gamepad_ReportDescriptor[] = {
    HID_ReportCount(1),
    HID_ReportSize(8),
    HID_Input(HID_Data | HID_Variable | HID_Absolute),
-   // Mapeo de 32-bit button
+   // Mapeo de los 6 pulsadores
    HID_UsagePage( HID_USAGE_PAGE_BUTTON ),
    HID_UsageMin(1),
-   HID_UsageMax(32),
+   HID_UsageMax(6),
    HID_LogicalMin(0),
    HID_LogicalMax(1),
-   HID_ReportCount(32),
+   HID_ReportCount(6),
    HID_ReportSize(1),
    HID_Input(HID_Data | HID_Variable | HID_Absolute),
+   // 2 bits reservados para futuros pulsadores
+   HID_ReportCount(1),
+   HID_ReportSize(2),
+   HID_Input(HID_Constant), 
    HID_EndCollection,
 };
 
