@@ -34,6 +34,6 @@
    );
    
    void usbDeviceGamepadTasks(void);
-   
+   void usbDeviceGamepadPress(uint8_t);
    
 #endif

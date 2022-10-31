@@ -51,8 +51,8 @@ int main( void )
    boardConfig();
 
    // Configuration routine for HID Keyboard example   
-   usbDeviceConfig(USB_HID_KEYBOARD);   
-   usbDeviceKeyboardCheckKeysCallbackSet( checkForPressedKeys );
+   // usbDeviceConfig(USB_HID_KEYBOARD);   
+   // usbDeviceKeyboardCheckKeysCallbackSet( checkForPressedKeys );
    
    // Configuración/Inicialización de HID Gamepad
    usbDeviceConfig(USB_HID_GAMEPAD);
@@ -133,7 +133,9 @@ int main( void )
          Board_LED_Set(5, true);
       } else Board_LED_Set(5, false);
       
-      usbDeviceKeyboardTasks();
+      usbDeviceGamepadPress(1);
+      
+      usbDeviceGamepadTasks();
    }
 
    // NO DEBE LLEGAR NUNCA AQUI, debido a que a este programa se ejecuta
