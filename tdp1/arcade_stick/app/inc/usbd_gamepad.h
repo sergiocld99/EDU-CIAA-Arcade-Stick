@@ -17,6 +17,9 @@
 
    /*==================[macros]=================================================*/
    
+   // Endpoints
+   #define HID_EP_IN       0x01
+   #define HID_EP_OUT      0x01
    
    /*==================[tipos de datos declarados por el usuario]===============*/
    
@@ -33,7 +36,7 @@
       uint32_t *mem_size
    );
    
-   void usbDeviceGamepadTasks(void);
+   uint8_t usbDeviceGamepadTasks(void);
    void usbDeviceGamepadPress(uint8_t);
    
 #endif
