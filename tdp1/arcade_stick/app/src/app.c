@@ -64,28 +64,25 @@ int main( void )
    // usbDeviceConfig(USB_HID_KEYBOARD);   
    // usbDeviceKeyboardCheckKeysCallbackSet( checkForPressedKeys );
    
-   // Configuración/Inicialización de HID Gamepad
+   // Configuraciï¿½n/Inicializaciï¿½n de HID Gamepad
    usbDeviceConfig(USB_HID_GAMEPAD);
    usbDeviceGamepadCheckCallbackSet(checkForGamepadStatus);
-   
-   // Habilitar ADC
-   adcConfig( ADC_ENABLE ); /* ADC */
    
    // Habilitar UART (DEBUG)
    // Inicializar UART_USB a 115200 baudios
    uartConfig( UART_USB, 115200 );
    
-   // Establecer T_COL1 como entrada digital
-   gpioInit( T_COL1, GPIO_INPUT );
+   // Inicializar controles
+   Joystick_Init();              // SW como digital input
+   
 
    // ---------- REPETIR POR SIEMPRE --------------------------
    while (1) {
       
-      // Leer entrada CH3 (eje X: el 0 está izquierda)
-      uint16_t valorEjeX = adcRead( CH3 );
-      
-      // Leer entrada CH2 (eje Y: el 0 está arriba)
-      uint16_t valorEjeY = adcRead( CH2 );
+      // Leer ejes del Joystick
+      Joystick_Read();
+      AXIS_X_VALUE = Joystick_GetUnsignedAxisValue(X_AXIS);
+      AXIS_Y_VALUE = Joystick_GetUnsignedAxisValue(Y_AXIS);
       
       // MANDAR VALOR DE EJE X a TERMINAL
       /*
@@ -101,7 +98,7 @@ int main( void )
       
       Joystick_Direccion dirs[2];
       
-      Joystick_LeerDirs(valorEjeX, valorEjeY, dirs);
+      Joystick_GetDirections(dirs);
       // apagarTodos();
       
       FLAG_UP = 0;
@@ -139,15 +136,8 @@ int main( void )
             break;
       }
       
-      // Lectura del botón SW
-      /*
-      if( !gpioRead( T_COL1 ) ){
-         Board_LED_Set(5, true);
-      } else Board_LED_Set(5, false);
-      */
-      
-      AXIS_X_VALUE = valorEjeX / 4;
-      AXIS_Y_VALUE = valorEjeY / 4;
+      // Acciones segÃºn estado de SW
+      Board_LED_Set(5, Joystick_IsSwitchPressed);
       
       usbDeviceGamepadTasks();
       sleepUntilNextInterrupt();
