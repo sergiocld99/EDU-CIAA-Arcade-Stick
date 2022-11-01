@@ -96,16 +96,16 @@ ErrorCode_t usbDeviceGamepadInit(USBD_HANDLE_T hUsb, USB_INTERFACE_DESCRIPTOR *p
    hid_param.HID_SetReport = Gamepad_SetReport;
    hid_param.HID_EpIn_Hdlr = Gamepad_EpIN_Hdlr;
    
-   // Inicializar reports_data
+   // Cargar parámetros de reporte
    reports_data[0].len = Gamepad_ReportDescSize;
    reports_data[0].idle_time = 0;
    reports_data[0].desc = (uint8_t *) &Gamepad_ReportDescriptor[0];
    hid_param.report_data = reports_data;
    
-   // Fin de inicialización con USBD API
+   // Inicializar HID a partir de manejador y parámetros
    ret = USBD_API->hid->init(hUsb, &hid_param);
    
-   // Actualizar parámetros por referencia de memoria
+   // Actualizar los parámetros de memoria de USBD API
    *mem_base = hid_param.mem_base;
    *mem_size = hid_param.mem_size;
    
