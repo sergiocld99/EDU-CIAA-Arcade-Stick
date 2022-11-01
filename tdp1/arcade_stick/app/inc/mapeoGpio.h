@@ -1,27 +1,45 @@
+/*============================================================================
+ * Licencia:
+ * Autor:      CalderÛn Sergio Leandro
+ * Fecha:      1 de noviembre de 2022
+ *===========================================================================*/
+
 // En este header se indica cual es
 // el pin de EDU CIAA utilizado para 
-// cada perif√©rico del √Årcade Stick
+// cada perifÈrico del Arcade Stick
 
-// Cabecera donde se encuentran definidos los pines de la EDU-CIAA
-#include "sapi_peripheral_map.h"
+#ifndef _MAPEOGPIO_H_
+   #define _MAPEOGPIO_H_
 
-#define DEPURACION
+   /*==================[inclusiones]============================================*/
+   
+   // Cabecera donde se encuentran definidos los pines de la EDU-CIAA
+   #include "sapi_peripheral_map.h"
 
-// ---------------------------- joystick -------------------------
+   /*==================[macros]=================================================*/
 
-#define PIN_VRX     CH3
-#define PIN_VRY     CH2
-#define PIN_SW      T_COL1
+   #define DEPURACION
 
-// ---------------------------- pulsadores -----------------------
+   // ---------------------------- joystick -------------------------
 
+   #define PIN_VRX     CH3
+   #define PIN_VRY     CH2
+   #define PIN_SW      T_COL1
 
-
-
-
-// ---------------------------- display --------------------------
+   // ---------------------------- pulsadores -----------------------
 
 
 
 
-// ---------------------------- leds -------------------------------
+
+   // ---------------------------- display --------------------------
+
+
+
+
+   // ---------------------------- leds -------------------------------
+
+
+/*==================[end of file]============================================*/
+
+#endif
