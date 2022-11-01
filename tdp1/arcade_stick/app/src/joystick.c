@@ -7,7 +7,7 @@ static uint8_t SWITCH_PRESSED = 0;
 
 // Prototipos de funciones privadas
 static uint8_t convert16to8(uint16_t ogValue);
-static int8_t convertRawToSigned(uint8_t ogValue);
+static int8_t convertRawToSigned(uint16_t ogValue);
 
 
 void Joystick_Init(){
@@ -25,7 +25,7 @@ void Joystick_Read(){
    AXIS_Y_RAW_VALUE = adcRead(PIN_VRY);
 
    // También se lee el estado del pulsador SW
-   SWITCH_PRESSED = !gpio_Read(PIN_SW);
+   SWITCH_PRESSED = !gpioRead(PIN_SW);
 }
 
 uint8_t Joystick_IsSwitchPressed(){
