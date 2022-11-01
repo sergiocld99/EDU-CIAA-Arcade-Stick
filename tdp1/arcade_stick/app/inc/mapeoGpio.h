@@ -28,10 +28,18 @@
 
    // ---------------------------- pulsadores -----------------------
 
-   #define PIN_S1    GPIO1
-   #define PIN_S2    GPIO3
-   #define PIN_S3    GPIO5
-   #define PIN_S4    GPIO7
+   #ifdef DEPURACION
+      #define PIN_S1    TEC1
+      #define PIN_S2    TEC2
+      #define PIN_S3    TEC3
+      #define PIN_S4    TEC4
+   #else
+      #define PIN_S1    GPIO1
+      #define PIN_S2    GPIO3
+      #define PIN_S3    GPIO5
+      #define PIN_S4    GPIO7
+   #endif
+   
    #define PIN_S5    GPIO8
    #define PIN_S6    GPIO6
 
@@ -46,9 +54,15 @@
 
    // ---------------------------- leds -------------------------------
 
-   #define PIN_LED_R    GPIO0
-   #define PIN_LED_G    GPIO2
-   #define PIN_LED_B    GPIO4
+   #ifdef DEPURACION
+      #define PIN_LED_R    LEDR
+      #define PIN_LED_G    LEDG
+      #define PIN_LED_B    LEDB
+   #else
+      #define PIN_LED_R    GPIO0
+      #define PIN_LED_G    GPIO2
+      #define PIN_LED_B    GPIO4
+   #endif
 
 
 /*==================[end of file]============================================*/
