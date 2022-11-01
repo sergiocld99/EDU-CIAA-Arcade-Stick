@@ -14,9 +14,19 @@ static volatile uint8_t FLAG_DOWN = 0;
 static volatile uint8_t FLAG_LEFT = 0;
 static volatile uint8_t FLAG_RIGHT = 0;
 
+// fuera del main de momento
+static volatile uint8_t AXIS_X_VALUE = 512 / 4;
+static volatile uint8_t AXIS_Y_VALUE = 512 / 4;
+
+// funciones
+
 void delayBloqueante(uint32_t ms){
    uint32_t end = tick_ct + ms;
    while (tick_ct < end) tick_ct++;
+}
+
+void checkForGamepadStatus(void* unused){
+   usbDeviceGamepadPress(AXIS_X_VALUE);
 }
 
 
@@ -56,6 +66,7 @@ int main( void )
    
    // Configuración/Inicialización de HID Gamepad
    usbDeviceConfig(USB_HID_GAMEPAD);
+   usbDeviceGamepadCheckCallbackSet(checkForGamepadStatus);
    
    // Habilitar ADC
    adcConfig( ADC_ENABLE ); /* ADC */
@@ -107,7 +118,7 @@ int main( void )
             break;
          case RIGHT:
             // Board_LED_Set(4, true);
-            FLAG_RIGHT = 0;
+            FLAG_RIGHT = 1;
             break;
          default:
             break;
@@ -135,14 +146,11 @@ int main( void )
       } else Board_LED_Set(5, false);
       */
       
-      usbDeviceGamepadPress(100);
+      AXIS_X_VALUE = valorEjeX / 4;
+      AXIS_Y_VALUE = valorEjeY / 4;
       
-      uint8_t sent = usbDeviceGamepadTasks();
-      if (sent) Board_LED_Toggle(4);
+      usbDeviceGamepadTasks();
       sleepUntilNextInterrupt();
-      
-      Board_LED_Toggle(5);
-      delay(200);
    }
 
    // NO DEBE LLEGAR NUNCA AQUI, debido a que a este programa se ejecuta
