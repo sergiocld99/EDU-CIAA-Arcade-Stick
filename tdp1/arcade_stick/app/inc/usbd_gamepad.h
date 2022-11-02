@@ -18,13 +18,14 @@
    /*==================[macros]=================================================*/
    
    // Endpoints
-   #define HID_EP_IN       0x81
-   // #define HID_EP_OUT      0x01
+   #define GAMEPAD_MAX_ENDPOINTS                         1
+   #define HID_EP_IN                                     0x81
+   // #define HID_EP_OUT                                 0x01
    
    // Reportes
-   #define GAMEPAD_REPORT_SIZE                           8
-   #define HID_GAMEPAD_CLEAR_REPORT(x)                   memset(x, 0, 8);
-   #define HID_GAMEPAD_REPORT_SET_VALUE(x, val)          x[2] = (uint8_t) val;
+   #define GAMEPAD_REPORT_SIZE                           3
+   #define HID_GAMEPAD_CLEAR_REPORT(x)                   memset(x, 0, GAMEPAD_REPORT_SIZE);
+   #define HID_GAMEPAD_REPORT_SET_VALUE(x, val)          x[0] = (uint8_t) val;
    
    
    /*==================[tipos de datos declarados por el usuario]===============*/
