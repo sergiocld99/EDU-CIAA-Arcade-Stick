@@ -16,7 +16,7 @@
 #define GAMEPAD_REPORT_SIZE 8
 
 #define HID_GAMEPAD_CLEAR_REPORT(x)                   memset(x, 0, 8);
-#define HID_GAMEPAD_REPORT_SET_VALUE(x, val)          x[7] = (uint8_t) val;
+#define HID_GAMEPAD_REPORT_SET_VALUE(x, val)          x[BYTE_PULSADORES] = (uint8_t) val;
 
 /*****************************************************************************
  * Public types/enumerations/variables
