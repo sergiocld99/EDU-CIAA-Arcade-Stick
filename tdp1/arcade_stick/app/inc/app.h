@@ -16,6 +16,9 @@
    
    #include "joystick.h"
    #include "utils.h"
+   
+   // API simplificada para comunicación USB
+   #include "gamepad_api.h"
 
 
    /*==================[macros]============================================*/

@@ -18,6 +18,7 @@
    /*==================[macros]=================================================*/
    
    #define BYTE_PULSADORES    7
+   #define CANT_PULSADORES    6
    
    
    /*==================[tipos de datos declarados por el usuario]===============*/

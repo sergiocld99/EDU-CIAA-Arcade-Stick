@@ -19,25 +19,20 @@ void delayBloqueante(uint32_t ms){
    while (tick_ct < end) tick_ct++;
 }
 
+/* ESTO FUNCIONÓ EL 7/11 (PRESIONA 5 PRIMEROS BOTONES)
 void checkForGamepadStatus(void* unused){
    usbDeviceGamepadPress(31);
 }
+*/
 
-void checkForPressedKeys( void* unused )
+void checkForPressedButtons(void* unused)
 {
-  
-   if( !gpioRead( TEC1 ) || FLAG_UP ){
-      usbDeviceKeyboardPress( USB_KEY_W ); // 'c' or 'C'
-   }
-   else if( !gpioRead( TEC2) || FLAG_RIGHT ){
-      usbDeviceKeyboardPress( USB_KEY_D ); // 'i' or 'I'
-   }
-   else if( !gpioRead( TEC3 ) || FLAG_LEFT ){         
-      usbDeviceKeyboardPress( USB_KEY_A ); // 'a' or 'A'
-   }
-   else if( !gpioRead( TEC4 ) || FLAG_DOWN ){         
-      usbDeviceKeyboardPress( USB_KEY_S ); // Enter
-   }
+   if (!gpioRead(TEC1)) USB_MarcarBoton(1);
+   if (!gpioRead(TEC2)) USB_MarcarBoton(2);
+   if (!gpioRead(TEC3)) USB_MarcarBoton(3);
+   if (!gpioRead(TEC4)) USB_MarcarBoton(4);   
+   
+   USB_PresionarBotones();
 }
 
 // FUNCION PRINCIPAL, PUNTO DE ENTRADA AL PROGRAMA LUEGO DE ENCENDIDO O RESET.
@@ -52,14 +47,10 @@ int main( void )
 
    /* Inicializar la placa */
    boardConfig();
-
-   // Configuration routine for HID Keyboard example   
-   // usbDeviceConfig(USB_HID_KEYBOARD);   
-   // usbDeviceKeyboardCheckKeysCallbackSet( checkForPressedKeys );
    
    // Configuración/Inicialización de HID Gamepad
    usbDeviceConfig(USB_HID_GAMEPAD);
-   usbDeviceGamepadCheckCallbackSet(checkForGamepadStatus);
+   usbDeviceGamepadCheckCallbackSet(checkForPressedButtons);
    
    // Habilitar ADC
    adcConfig( ADC_ENABLE ); /* ADC */
