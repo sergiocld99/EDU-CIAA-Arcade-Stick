@@ -17,24 +17,12 @@
 
    /*==================[macros]=================================================*/
    
-   // Endpoints
-   #define GAMEPAD_MAX_ENDPOINTS                         1
-   #define HID_EP_IN                                     0x81
-   // #define HID_EP_OUT                                 0x01
-   
-   // Reportes
-   #define GAMEPAD_REPORT_SIZE                           3
-   #define HID_GAMEPAD_CLEAR_REPORT(x)                   memset(x, 0, GAMEPAD_REPORT_SIZE);
-   #define HID_GAMEPAD_REPORT_SET_VALUE(x, val)          x[0] = (uint8_t) val;
-   
    
    /*==================[tipos de datos declarados por el usuario]===============*/
    
 
    /*==================[declaraciones de datos externos]========================*/
 
-   extern const uint8_t Gamepad_ReportDescriptor[];      // definido en usb_gamepad_hid_desc.c
-   extern const uint16_t Gamepad_ReportDescSize;         // definido en usb_gamepad_hid_desc.c
 
    /*==================[declaraciones de funciones públicas]====================*/
    
@@ -45,7 +33,7 @@
       uint32_t *mem_size
    );
    
-   void usbDeviceGamepadTasks(void);
+   uint8_t usbDeviceGamepadTasks(void);
    void usbDeviceGamepadPress(uint8_t);
    bool_t usbDeviceGamepadCheckCallbackSet(callBackFuncPtr_t checkCallback);
    

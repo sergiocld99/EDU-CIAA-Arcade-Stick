@@ -14,21 +14,14 @@ static volatile uint8_t FLAG_DOWN = 0;
 static volatile uint8_t FLAG_LEFT = 0;
 static volatile uint8_t FLAG_RIGHT = 0;
 
-// fuera del main de momento
-static volatile uint8_t AXIS_X_VALUE = 512 / 4;
-static volatile uint8_t AXIS_Y_VALUE = 512 / 4;
-
-// funciones
-
 void delayBloqueante(uint32_t ms){
    uint32_t end = tick_ct + ms;
    while (tick_ct < end) tick_ct++;
 }
 
 void checkForGamepadStatus(void* unused){
-   usbDeviceGamepadPress(AXIS_X_VALUE);
+   usbDeviceGamepadPress(31);
 }
-
 
 void checkForPressedKeys( void* unused )
 {
@@ -64,25 +57,28 @@ int main( void )
    // usbDeviceConfig(USB_HID_KEYBOARD);   
    // usbDeviceKeyboardCheckKeysCallbackSet( checkForPressedKeys );
    
-   // Configuraciï¿½n/Inicializaciï¿½n de HID Gamepad
+   // Configuración/Inicialización de HID Gamepad
    usbDeviceConfig(USB_HID_GAMEPAD);
    usbDeviceGamepadCheckCallbackSet(checkForGamepadStatus);
+   
+   // Habilitar ADC
+   adcConfig( ADC_ENABLE ); /* ADC */
    
    // Habilitar UART (DEBUG)
    // Inicializar UART_USB a 115200 baudios
    uartConfig( UART_USB, 115200 );
    
-   // Inicializar controles
-   Joystick_Init();              // SW como digital input
-   
+   // Establecer T_COL1 como entrada digital
+   gpioInit( T_COL1, GPIO_INPUT );
 
    // ---------- REPETIR POR SIEMPRE --------------------------
    while (1) {
       
-      // Leer ejes del Joystick
-      Joystick_Read();
-      AXIS_X_VALUE = Joystick_GetUnsignedAxisValue(X_AXIS);
-      AXIS_Y_VALUE = Joystick_GetUnsignedAxisValue(Y_AXIS);
+      // Leer entrada CH3 (eje X: el 0 está izquierda)
+      uint16_t valorEjeX = adcRead( CH3 );
+      
+      // Leer entrada CH2 (eje Y: el 0 está arriba)
+      uint16_t valorEjeY = adcRead( CH2 );
       
       // MANDAR VALOR DE EJE X a TERMINAL
       /*
@@ -98,7 +94,7 @@ int main( void )
       
       Joystick_Direccion dirs[2];
       
-      Joystick_GetDirections(dirs);
+      Joystick_LeerDirs(valorEjeX, valorEjeY, dirs);
       // apagarTodos();
       
       FLAG_UP = 0;
@@ -115,7 +111,7 @@ int main( void )
             break;
          case RIGHT:
             // Board_LED_Set(4, true);
-            FLAG_RIGHT = 1;
+            FLAG_RIGHT = 0;
             break;
          default:
             break;
@@ -136,11 +132,20 @@ int main( void )
             break;
       }
       
-      // Acciones segÃºn estado de SW
-      Board_LED_Set(5, Joystick_IsSwitchPressed);
+      // Lectura del botón SW
+      /*
+      if( !gpioRead( T_COL1 ) ){
+         Board_LED_Set(5, true);
+      } else Board_LED_Set(5, false);
+      */
       
-      usbDeviceGamepadTasks();
+      usbDeviceGamepadPress(100);
+      
+      uint8_t sent = usbDeviceGamepadTasks();
       sleepUntilNextInterrupt();
+      
+      // Board_LED_Toggle(5);
+      delay(200);
    }
 
    // NO DEBE LLEGAR NUNCA AQUI, debido a que a este programa se ejecuta

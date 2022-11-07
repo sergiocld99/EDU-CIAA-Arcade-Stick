@@ -1,22 +1,35 @@
 /**
    
-   Codigo fuente basado en usbd_keyboard de sAPI, adaptado a un Gamepad
+   Código fuente basado en usbd_keyboard de sAPI, adaptado a un Gamepad
    
-   Autor: Calderon Sergio
+   Autor: Calderón Sergio
    Fecha: 24 de octubre de 2022
 
 **/
 
 // Cabecera del archivo
 #include "usbd_gamepad.h"
-// #include "usbd_keyboard_endpoints.h"
+#include "usbd_keyboard_endpoints.h"
 #include "sapi_board.h"
+
+// Macros
+#define GAMEPAD_REPORT_SIZE 8
+
+#define HID_GAMEPAD_CLEAR_REPORT(x)                   memset(x, 0, 8);
+#define HID_GAMEPAD_REPORT_SET_VALUE(x, val)          x[7] = (uint8_t) val;
 
 /*****************************************************************************
  * Public types/enumerations/variables
  ****************************************************************************/
+ 
+extern const uint8_t Gamepad_ReportDescriptor[];      // definido en usb_gamepad_hid_desc.c
+extern const uint16_t Gamepad_ReportDescSize;         // definido en usb_gamepad_hid_desc.c
 
-callBackFuncPtr_t gamepadCheckFunction = NULL;
+typedef struct {
+	USBD_HANDLE_T hUsb;	                  /*!< Handle to USB stack. */
+	uint8_t report[GAMEPAD_REPORT_SIZE];	/*!< Last report data  */
+	uint8_t tx_busy;	                     /*!< Flag indicating whether a report is pending in endpoint queue. */
+} Gamepad_Ctrl_T;
 
 /// HID Gamepad Protocol Report.
 typedef struct TU_ATTR_PACKED
@@ -31,26 +44,17 @@ typedef struct TU_ATTR_PACKED
    uint32_t buttons;  ///< Buttons mask for currently pressed buttons
 } hid_gamepad_report_t;
 
-/*****************************************************************************
- * Private types/enumerations/variables
- ****************************************************************************/
-
-typedef struct {
-	USBD_HANDLE_T hUsb;	                  /*!< Handle to USB stack. */
-	uint8_t report[GAMEPAD_REPORT_SIZE];	/*!< Last report data  */
-	uint8_t tx_busy;	                     /*!< Flag indicating whether a report is pending in endpoint queue. */
-} Gamepad_Ctrl_T;
-
 static Gamepad_Ctrl_T g_gamePad;
-
+callBackFuncPtr_t gamepadCheckFunction = NULL;
 
 /*****************************************************************************
  * Private functions
  ****************************************************************************/
 
 static void Gamepad_UpdateReport(){
-   
    HID_GAMEPAD_CLEAR_REPORT(&g_gamePad.report[0]);
+   
+   Board_LED_Toggle(3);
 
    // Execute Tick Hook function if pointer is not NULL
    if (gamepadCheckFunction != NULL) {
@@ -58,11 +62,11 @@ static void Gamepad_UpdateReport(){
    }
 }
 
-/* HID Get Report Request Callback. Called automatically on HID Get Report Request */
 static ErrorCode_t Gamepad_GetReport(USBD_HANDLE_T hHid, USB_SETUP_PACKET *pSetup, uint8_t * *pBuffer, uint16_t *plength){
    
-   /* ReportID = SetupPacket.wValue.WB.L; */
-	switch (pSetup->wValue.WB.H) {
+   Board_LED_Toggle(5);
+   
+   switch (pSetup->wValue.WB.H) {
 
       case HID_REPORT_INPUT:
          Gamepad_UpdateReport();
@@ -78,23 +82,21 @@ static ErrorCode_t Gamepad_GetReport(USBD_HANDLE_T hHid, USB_SETUP_PACKET *pSetu
 	return LPC_OK;
 }
 
-/* HID Set Report Request Callback. Called automatically on HID Set Report Request */
 static ErrorCode_t Gamepad_SetReport(USBD_HANDLE_T hHid, USB_SETUP_PACKET *pSetup, uint8_t * *pBuffer, uint16_t length){
    // TODO
+   Board_LED_Toggle(3);
    
    return LPC_OK;
 }
 
 // Manejador de interrupciones
 static ErrorCode_t Gamepad_EpIN_Hdlr(USBD_HANDLE_T hUsb, void *data, uint32_t event){
-   
+ 
    switch (event) {
       case USB_EVT_IN:
          g_gamePad.tx_busy = 0;
          break;
    }
-   
-   return LPC_OK;
    
    return LPC_OK;
 }
@@ -109,7 +111,7 @@ ErrorCode_t usbDeviceGamepadInit(USBD_HANDLE_T hUsb, USB_INTERFACE_DESCRIPTOR *p
    USB_HID_REPORT_T reports_data[1];
    ErrorCode_t ret = LPC_OK;
    
-   // Configurar parametros HID
+   // Configurar parámetros HID
    memset((void *) &hid_param, 0, sizeof(USBD_HID_INIT_PARAM_T));
    hid_param.max_reports = 1;
    hid_param.mem_base = *mem_base;
@@ -117,33 +119,33 @@ ErrorCode_t usbDeviceGamepadInit(USBD_HANDLE_T hUsb, USB_INTERFACE_DESCRIPTOR *p
    hid_param.intf_desc = (uint8_t *) pIntfDesc;
    
    // Funciones definidas para Gamepad
-   // Se debe respetar el prototipo segï¿½n usbd_hiduser.h (de sAPI)
+   // Se debe respetar el prototipo según usbd_hiduser.h (de sAPI)
    hid_param.HID_GetReport = Gamepad_GetReport;
    hid_param.HID_SetReport = Gamepad_SetReport;
    hid_param.HID_EpIn_Hdlr = Gamepad_EpIN_Hdlr;
    
-   // Cargar parametros de reporte
+   // Inicializar reports_data
    reports_data[0].len = Gamepad_ReportDescSize;
    reports_data[0].idle_time = 0;
    reports_data[0].desc = (uint8_t *) &Gamepad_ReportDescriptor[0];
    hid_param.report_data = reports_data;
    
-   // Inicializar HID a partir de manejador y parametros
+   // Fin de inicialización con USBD API
    ret = USBD_API->hid->init(hUsb, &hid_param);
    
-   // Actualizar los parametros de memoria de USBD API
+   // Actualizar parámetros por referencia de memoria
    *mem_base = hid_param.mem_base;
    *mem_size = hid_param.mem_size;
    
    g_gamePad.hUsb = hUsb;
    g_gamePad.tx_busy = 0;
    
-   // Se devuelve estado resultado de la inicializacion
+   // Se devuelve estado resultado de la inicialización
    return ret;
 }
 
 
-void usbDeviceGamepadTasks(void){
+uint8_t usbDeviceGamepadTasks(void){
    
    // Primero nos aseguramos que el dispositivo esté configurado
    if (USB_IsConfigured(g_gamePad.hUsb)){
@@ -153,16 +155,20 @@ void usbDeviceGamepadTasks(void){
          g_gamePad.tx_busy = 1;      // marcar como ocupado
          Gamepad_UpdateReport();                // cargar reporte
          USBD_API->hw->WriteEP(g_gamePad.hUsb, HID_EP_IN, &g_gamePad.report[0], GAMEPAD_REPORT_SIZE);
+         Board_LED_Toggle(1);
       }
    } else {
       // Si no está configurado, marcar como no ocupado
       g_gamePad.tx_busy = 0;
    }
+   
+   return 0;
 }
 
 void usbDeviceGamepadPress( uint8_t key )
 {
    HID_GAMEPAD_REPORT_SET_VALUE(g_gamePad.report, key);
+   Board_LED_Toggle(7);
 }
 
 // Gamepad function to check in my device for pressed buttons

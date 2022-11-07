@@ -39,9 +39,6 @@
 
 #include "lpc_app_usbd_cfg.h"
 
-// for max endpoints value
-// #include "usbd_gamepad.h"
-
 /*****************************************************************************
  * Private types/enumerations/variables
  ****************************************************************************/
@@ -178,7 +175,7 @@ bool_t usbDeviceInit( UsbSubClass_t subclass ){
          
       // ACTUALIZACIÓN GAMEPAD (basado en el anterior USB_HID_KEYBOARD)
       case USB_HID_GAMEPAD:
-         usb_param.max_num_ep = GAMEPAD_MAX_ENDPOINTS;
+         usb_param.max_num_ep = 2; // Keyboard has 2 endpoints
          ret = usbDeviceLpcInit(&desc, &usb_param);
          
          // Uso de la función creada en usbd_gamepad.c

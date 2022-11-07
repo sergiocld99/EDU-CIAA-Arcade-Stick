@@ -1,58 +1,31 @@
 /*============================================================================
  * Licencia:
- * Autor:      Calder贸n Sergio Leandro
- * Fecha:      1 de noviembre de 2022
+ * Autor:
+ * Fecha:
  *===========================================================================*/
 
 #ifndef _JOYSTICK_H_
    #define _JOYSTICK_H_
 
    /*==================[inclusiones]============================================*/
-   
    #include "sapi.h"
-   #include "mapeoGpio.h"        // VRx, VRy, SW
-
    #include <stdlib.h>
 
    /*==================[macros]=================================================*/
-
    #define NEUTRO_MIN 400
    #define NEUTRO_MAX 624
 
-
    /*==================[tipos de datos declarados por el usuario]===============*/
-
-   typedef enum {
-      X_AXIS, Y_AXIS
-   } Joystick_Axis;
-
    typedef enum {
       UP, LEFT, RIGHT, DOWN, NONE
    } Joystick_Direccion;
 
-
    /*==================[declaraciones de datos externos]========================*/
 
-   /*==================[declaraciones de funciones p煤blicas]====================*/
+   /*==================[declaraciones de funciones p鷅licas]====================*/
    
-   // Inicializaci贸n de pines
-   void Joystick_Init();
-
-   // Lectura bloqueante de ejes y pulsador
-   void Joystick_Read();
-
-   // Obtenci贸n de estado del pulsador SW
-   uint8_t Joystick_IsSwitchPressed();
-
-   // Obtenci贸n de valores de ejes (posterior al Read)
-   uint8_t Joystick_GetUnsignedAxisValue(Joystick_Axis axis);
-   int8_t Joystick_GetSignedAxisValue(Joystick_Axis axis);
-
-   // C谩lculo de direcciones actuales (una para cada eje)
-   void Joystick_GetDirections(Joystick_Direccion* dirs);
+   Joystick_Direccion Joystick_ProcesarDir(uint16_t valorEjeX, uint16_t valorEjeY);
+   void Joystick_LeerDirs(uint16_t valorEjeX, uint16_t valorEjeY, Joystick_Direccion* dirs);
    
-
-
 /*==================[end of file]============================================*/
-
-#endif
+#endif /* _JOYSTICK_H_ */
