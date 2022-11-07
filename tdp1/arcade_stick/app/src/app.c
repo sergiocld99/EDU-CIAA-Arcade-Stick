@@ -27,10 +27,11 @@ void checkForGamepadStatus(void* unused){
 
 void checkForPressedButtons(void* unused)
 {
-   if (!gpioRead(TEC1)) USB_MarcarBoton(1);
-   if (!gpioRead(TEC2)) USB_MarcarBoton(2);
-   if (!gpioRead(TEC3)) USB_MarcarBoton(3);
-   if (!gpioRead(TEC4)) USB_MarcarBoton(4);   
+   if (!gpioRead(PIN_SW)) USB_MarcarBoton(0);
+   if (!gpioRead(PIN_S1)) USB_MarcarBoton(1);
+   if (!gpioRead(PIN_S2)) USB_MarcarBoton(2);
+   if (!gpioRead(PIN_S3)) USB_MarcarBoton(3);
+   if (!gpioRead(PIN_S4)) USB_MarcarBoton(4);   
    
    USB_PresionarBotones();
 }
