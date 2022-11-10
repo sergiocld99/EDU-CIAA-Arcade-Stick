@@ -29,13 +29,13 @@ const uint8_t Gamepad_ReportDescriptor[] = {
    HID_UsagePage( HID_USAGE_PAGE_GENERIC ),
    HID_Usage( HID_USAGE_GENERIC_X ),
    HID_Usage( HID_USAGE_GENERIC_Y ) ,
-   HID_Usage( HID_USAGE_GENERIC_Z ) ,
-   HID_Usage( HID_USAGE_GENERIC_RZ ) ,
+   // HID_Usage( HID_USAGE_GENERIC_Z ) ,
+   // HID_Usage( HID_USAGE_GENERIC_RZ ) ,
    HID_Usage( HID_USAGE_GENERIC_RX ) ,
    HID_Usage( HID_USAGE_GENERIC_RY ) ,
    HID_LogicalMin( -127 ),
    HID_LogicalMax( 127 ),
-   HID_ReportCount(6),                    // 6 bytes
+   HID_ReportCount(4),                    // 4 x 8 bytes
    HID_ReportSize(8),
    HID_Input(HID_Data | HID_Variable | HID_Relative),
    // Mapeo de 8-bit DPad / Hat
@@ -46,20 +46,24 @@ const uint8_t Gamepad_ReportDescriptor[] = {
    HID_PhysicalMin(0),
    HID_PHYSICAL_MAX_N(315, 2),
    HID_ReportCount(1),
-   HID_ReportSize(8),                     // 1 byte
+   HID_ReportSize(8),                     // 1 x 8 bytes
    HID_Input(HID_Data | HID_Variable | HID_Absolute),
+   // Relleno
+   HID_ReportCount(2),
+   HID_ReportSize(8),                     // 2 x 8 bytes
+   HID_Input(HID_Constant), 
    // Mapeo de los 6 pulsadores
    HID_UsagePage( HID_USAGE_PAGE_BUTTON ),
    HID_UsageMin(1),
-   HID_UsageMax(6),
+   HID_UsageMax(CANT_PULSADORES),
    HID_LogicalMin(0),
    HID_LogicalMax(1),
-   HID_ReportCount(6),
+   HID_ReportCount(CANT_PULSADORES),
    HID_ReportSize(1),
    HID_Input(HID_Data | HID_Variable | HID_Absolute),
    // 2 bits reservados para futuros pulsadores
-   HID_ReportCount(1),
-   HID_ReportSize(2),                     // 1 byte
+   HID_ReportCount(8 - CANT_PULSADORES),
+   HID_ReportSize(1),                     // 1 byte
    HID_Input(HID_Constant), 
    HID_EndCollection,
 };

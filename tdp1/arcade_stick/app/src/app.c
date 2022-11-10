@@ -13,31 +13,32 @@ static volatile uint8_t FLAG_UP = 0;
 static volatile uint8_t FLAG_DOWN = 0;
 static volatile uint8_t FLAG_LEFT = 0;
 static volatile uint8_t FLAG_RIGHT = 0;
+static volatile int8_t X_VALUE = 0;
+static volatile int8_t Y_VALUE = 0;
 
 void delayBloqueante(uint32_t ms){
    uint32_t end = tick_ct + ms;
    while (tick_ct < end) tick_ct++;
 }
 
+/* ESTO FUNCIONÓ EL 7/11 (PRESIONA 5 PRIMEROS BOTONES)
 void checkForGamepadStatus(void* unused){
    usbDeviceGamepadPress(31);
 }
+*/
 
-void checkForPressedKeys( void* unused )
+void checkForPressedButtons(void* unused)
 {
-  
-   if( !gpioRead( TEC1 ) || FLAG_UP ){
-      usbDeviceKeyboardPress( USB_KEY_W ); // 'c' or 'C'
-   }
-   else if( !gpioRead( TEC2) || FLAG_RIGHT ){
-      usbDeviceKeyboardPress( USB_KEY_D ); // 'i' or 'I'
-   }
-   else if( !gpioRead( TEC3 ) || FLAG_LEFT ){         
-      usbDeviceKeyboardPress( USB_KEY_A ); // 'a' or 'A'
-   }
-   else if( !gpioRead( TEC4 ) || FLAG_DOWN ){         
-      usbDeviceKeyboardPress( USB_KEY_S ); // Enter
-   }
+   if (!gpioRead(PIN_SW)) USB_MarcarBoton(6);
+   if (!gpioRead(PIN_S1)) USB_MarcarBoton(0);
+   if (!gpioRead(PIN_S2)) USB_MarcarBoton(1);
+   if (!gpioRead(PIN_S3)) USB_MarcarBoton(2);
+   if (!gpioRead(PIN_S4)) USB_MarcarBoton(3);   
+   
+   USB_PresionarBotones();
+   usbDeviceGamepadMove(X_VALUE, 0);
+   usbDeviceGamepadMove(Y_VALUE, 1);
+   usbDeviceGamepadHat(!gpioRead(PIN_SW));
 }
 
 // FUNCION PRINCIPAL, PUNTO DE ENTRADA AL PROGRAMA LUEGO DE ENCENDIDO O RESET.
@@ -52,14 +53,10 @@ int main( void )
 
    /* Inicializar la placa */
    boardConfig();
-
-   // Configuration routine for HID Keyboard example   
-   // usbDeviceConfig(USB_HID_KEYBOARD);   
-   // usbDeviceKeyboardCheckKeysCallbackSet( checkForPressedKeys );
    
    // Configuración/Inicialización de HID Gamepad
    usbDeviceConfig(USB_HID_GAMEPAD);
-   usbDeviceGamepadCheckCallbackSet(checkForGamepadStatus);
+   usbDeviceGamepadCheckCallbackSet(checkForPressedButtons);
    
    // Habilitar ADC
    adcConfig( ADC_ENABLE ); /* ADC */
@@ -95,7 +92,7 @@ int main( void )
       Joystick_Direccion dirs[2];
       
       Joystick_LeerDirs(valorEjeX, valorEjeY, dirs);
-      // apagarTodos();
+      apagarTodos();
       
       FLAG_UP = 0;
       FLAG_DOWN = 0;
@@ -106,11 +103,11 @@ int main( void )
          case NONE:
             break;
          case LEFT:
-            // Board_LED_Set(3, true);
+            Board_LED_Set(3, true);
             FLAG_LEFT = 1;
             break;
          case RIGHT:
-            // Board_LED_Set(4, true);
+            Board_LED_Set(4, true);
             FLAG_RIGHT = 0;
             break;
          default:
@@ -121,31 +118,33 @@ int main( void )
          case NONE:
             break;
          case UP:
-            // Board_LED_Set(0, true);
+            Board_LED_Set(1, true);
             FLAG_UP = 1;
             break;
          case DOWN:
-            // Board_LED_Set(1, true);
+            Board_LED_Set(2, true);
             FLAG_DOWN = 1;
             break;
          default:
             break;
       }
       
-      // Lectura del botón SW
-      /*
-      if( !gpioRead( T_COL1 ) ){
-         Board_LED_Set(5, true);
-      } else Board_LED_Set(5, false);
-      */
       
-      usbDeviceGamepadPress(100);
+      // achicar entre 0 y 255
+      uint8_t x_aux = (uint8_t) (valorEjeX / 4);
+      uint8_t y_aux = (uint8_t) (valorEjeY / 4);
       
-      uint8_t sent = usbDeviceGamepadTasks();
+      X_VALUE = (int8_t) (x_aux - 128);
+      Y_VALUE = (int8_t) (y_aux - 128);
+      
+      // Board_LED_Set(3, X_VALUE < 0);
+      // Board_LED_Set(4, Y_VALUE < 0);
+      
+      usbDeviceGamepadTasks();
       sleepUntilNextInterrupt();
       
       // Board_LED_Toggle(5);
-      delay(200);
+      delay(20);
    }
 
    // NO DEBE LLEGAR NUNCA AQUI, debido a que a este programa se ejecuta

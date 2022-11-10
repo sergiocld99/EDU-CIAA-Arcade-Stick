@@ -17,6 +17,9 @@
 
    /*==================[macros]=================================================*/
    
+   #define BYTE_PULSADORES    7
+   #define CANT_PULSADORES    7
+   
    
    /*==================[tipos de datos declarados por el usuario]===============*/
    
@@ -33,8 +36,12 @@
       uint32_t *mem_size
    );
    
-   uint8_t usbDeviceGamepadTasks(void);
+   void usbDeviceGamepadTasks(void);
+   
    void usbDeviceGamepadPress(uint8_t);
+   void usbDeviceGamepadMove(int8_t value, uint8_t axis);
+   void usbDeviceGamepadHat(uint8_t pressed);
+   
    bool_t usbDeviceGamepadCheckCallbackSet(callBackFuncPtr_t checkCallback);
    
 #endif

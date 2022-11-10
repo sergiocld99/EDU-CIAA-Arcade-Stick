@@ -16,7 +16,14 @@
    
    #include "joystick.h"
    #include "utils.h"
-
+   
+   // API simplificada para comunicación USB
+   #include "gamepad_api.h"
+   
+   // Mapeo de los pines a utilizar para cada funcionalidad
+   // Si está definida la macro "Depuracion" se usan leds y pulsadores ya incorporados
+   #include "mapeoGpio.h"
+   
 
    /*==================[macros]============================================*/
    

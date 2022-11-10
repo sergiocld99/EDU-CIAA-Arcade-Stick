@@ -4,6 +4,7 @@
    /*==================[inclusiones]============================================*/
    
    #include "sapi_datatypes.h"
+
    
    /*==================[definición de tipos]============================================*/
    
@@ -17,10 +18,10 @@
      int8_t  rx;        ///< Delta Rx movement of analog left trigger
      int8_t  ry;        ///< Delta Ry movement of analog right trigger
      uint8_t hat;       ///< Buttons mask for currently pressed buttons in the DPad/hat
-     uint32_t buttons;  ///< Buttons mask for currently pressed buttons
+     uint8_t buttons;  ///< Buttons mask for currently pressed buttons
    } hid_gamepad_report_t;
 
-/*==================[end of file]============================================*/
-#endif /* _APP_H_ */
 
-
+   /*==================[end of file]============================================*/
+   
+#endif

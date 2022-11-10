@@ -16,6 +16,9 @@
 #define GAMEPAD_REPORT_SIZE 8
 
 #define HID_GAMEPAD_CLEAR_REPORT(x)                   memset(x, 0, 8);
+#define HID_GAMEPAD_REPORT_SET_XCOR(x, val)           x[0] = (int8_t) val;
+#define HID_GAMEPAD_REPORT_SET_YCOR(x, val)           x[1] = (int8_t) val;
+#define HID_GAMEPAD_REPORT_SET_HAT(x, val)            x[4] = (uint8_t) val;
 #define HID_GAMEPAD_REPORT_SET_VALUE(x, val)          x[7] = (uint8_t) val;
 
 /*****************************************************************************
@@ -54,7 +57,7 @@ callBackFuncPtr_t gamepadCheckFunction = NULL;
 static void Gamepad_UpdateReport(){
    HID_GAMEPAD_CLEAR_REPORT(&g_gamePad.report[0]);
    
-   Board_LED_Toggle(3);
+   // Board_LED_Toggle(3);
 
    // Execute Tick Hook function if pointer is not NULL
    if (gamepadCheckFunction != NULL) {
@@ -64,7 +67,7 @@ static void Gamepad_UpdateReport(){
 
 static ErrorCode_t Gamepad_GetReport(USBD_HANDLE_T hHid, USB_SETUP_PACKET *pSetup, uint8_t * *pBuffer, uint16_t *plength){
    
-   Board_LED_Toggle(5);
+   // Board_LED_Toggle(5);
    
    switch (pSetup->wValue.WB.H) {
 
@@ -84,7 +87,7 @@ static ErrorCode_t Gamepad_GetReport(USBD_HANDLE_T hHid, USB_SETUP_PACKET *pSetu
 
 static ErrorCode_t Gamepad_SetReport(USBD_HANDLE_T hHid, USB_SETUP_PACKET *pSetup, uint8_t * *pBuffer, uint16_t length){
    // TODO
-   Board_LED_Toggle(3);
+   // Board_LED_Toggle(3);
    
    return LPC_OK;
 }
@@ -145,7 +148,7 @@ ErrorCode_t usbDeviceGamepadInit(USBD_HANDLE_T hUsb, USB_INTERFACE_DESCRIPTOR *p
 }
 
 
-uint8_t usbDeviceGamepadTasks(void){
+void usbDeviceGamepadTasks(void){
    
    // Primero nos aseguramos que el dispositivo esté configurado
    if (USB_IsConfigured(g_gamePad.hUsb)){
@@ -155,20 +158,33 @@ uint8_t usbDeviceGamepadTasks(void){
          g_gamePad.tx_busy = 1;      // marcar como ocupado
          Gamepad_UpdateReport();                // cargar reporte
          USBD_API->hw->WriteEP(g_gamePad.hUsb, HID_EP_IN, &g_gamePad.report[0], GAMEPAD_REPORT_SIZE);
-         Board_LED_Toggle(1);
+         // Board_LED_Toggle(1);
       }
    } else {
       // Si no está configurado, marcar como no ocupado
       g_gamePad.tx_busy = 0;
    }
-   
-   return 0;
 }
 
-void usbDeviceGamepadPress( uint8_t key )
+void usbDeviceGamepadPress(uint8_t key)
 {
    HID_GAMEPAD_REPORT_SET_VALUE(g_gamePad.report, key);
-   Board_LED_Toggle(7);
+   // Board_LED_Toggle(7);
+}
+
+void usbDeviceGamepadMove(int8_t value, uint8_t axis)
+{
+   if (value > -28 && value < 28) return;
+   
+   if (axis == 0) {
+      HID_GAMEPAD_REPORT_SET_XCOR(g_gamePad.report, value);
+   } else {
+      HID_GAMEPAD_REPORT_SET_YCOR(g_gamePad.report, value);
+   }
+}
+
+void usbDeviceGamepadHat(uint8_t pressed){
+   HID_GAMEPAD_REPORT_SET_HAT(g_gamePad.report, pressed);
 }
 
 // Gamepad function to check in my device for pressed buttons
