@@ -58,12 +58,12 @@ const uint8_t Gamepad_ReportDescriptor[] = {
    HID_UsageMax(CANT_PULSADORES),
    HID_LogicalMin(0),
    HID_LogicalMax(1),
-   HID_ReportCount(CANT_PULSADORES),
+   HID_ReportCount(CANT_PULSADORES),      // 6 x 1 bit
    HID_ReportSize(1),
    HID_Input(HID_Data | HID_Variable | HID_Absolute),
    // 2 bits reservados para futuros pulsadores
    HID_ReportCount(8 - CANT_PULSADORES),
-   HID_ReportSize(1),                     // 1 byte
+   HID_ReportSize(1),                     // Relleno hasta completar byte
    HID_Input(HID_Constant), 
    HID_EndCollection,
 };
@@ -71,27 +71,8 @@ const uint8_t Gamepad_ReportDescriptor[] = {
 // Tamaño del descriptor de reportes
 const uint16_t Gamepad_ReportDescSize = sizeof(Gamepad_ReportDescriptor);
 
-// Conversiones auxiliares
-/**
-   HID_PHYSICAL_MAX_N ( 315, 2 )
-      = HID_REPORT_ITEM(315, RI_GLOBAL_PHYSICAL_MAX, RI_TYPE_GLOBAL, 2)
-      = ( (RI_GLOBAL_PHYSICAL_MAX << 4) | (RI_TYPE_GLOBAL << 2) | 2 ) HID_REPORT_DATA_2(315)
-      = ( 4 << 4 | 1 << 2 | 2 ), U16_TO_U8S_LE(315)
-      = ( 16 + 4 + 2), TU_U16_LOW(315), TU_U16_HIGH(315)
-      = ( 22 ), ((uint8_t) (315 & 0x00ff)), ((uint8_t) ((315 >> 8) & 0x00ff))
-      = ( 22 ), (0011 1011), (0000 0001)
-      = 22, 59, 1 
 
-315 = 256 + 32 + 16 + 8 + 2 + 1 = 0000 0001  0011 1011 = 
-
-315 - 256 = 59 - 32 = 27 - 16 = 11 - 8 = 3 - 2 = 1
-0x00FF = 255 (8 bits menos significativos en alto)
-
-#define HID_REPORT_ITEM(data, tag, type, size)
-      = (((tag) << 4) | ((type) << 2) | (size)) HID_REPORT_DATA_##size(data)
-**/
-
-// -------------------------- ESPECIFICACIONES PARA LPC OPEN ---------------------------
+// -------------------- FULL AND HIGH SPEED DESCRIPTORS ---------------------------
 
 /**
  * USB HSConfiguration Descriptor
@@ -241,24 +222,24 @@ const uint8_t USB_StringDescriptor[] = {
    /* Index 0x01: Manufacturer */
    (18 * 2 + 2),					   /* bLength (18 Char + Type + length) */
    USB_STRING_DESCRIPTOR_TYPE,   /* bDescriptorType */
-   'N', 0,
-   'X', 0,
-   'P', 0,
-   ' ', 0,
-   'S', 0,
-   'e', 0,
-   'm', 0,
-   'i', 0,
-   'c', 0,
-   'o', 0,
-   'n', 0,
-   'd', 0,
-   'u', 0,
-   'c', 0,
-   't', 0,
-   'o', 0,
+   'G', 0,
    'r', 0,
-   's', 0,
+   'u', 0,
+   'p', 0,
+   'o', 0,
+   ' ', 0,
+   'N', 0,
+   'r', 0,
+   'o', 0,
+   '.', 0,
+   ' ', 0,
+   '2', 0,
+   ' ', 0,
+   '-', 0,
+   ' ', 0,
+   'T', 0,
+   'D', 0,
+   'P', 0,
    /* Index 0x02: Product */
    (16 * 2 + 2),					   /* bLength (16 Char + Type + length) */
    USB_STRING_DESCRIPTOR_TYPE,   /* bDescriptorType */
@@ -297,16 +278,16 @@ const uint8_t USB_StringDescriptor[] = {
    /* Index 0x04: Interface 0, Alternate Setting 0 */
    (12 * 2 + 2),					   /* bLength (12 Char + Type + length) */
    USB_STRING_DESCRIPTOR_TYPE,   /* bDescriptorType */
-   'H', 0,
-   'I', 0,
-   'D', 0,
-   ' ', 0,
-   'G', 0,
    'A', 0,
-   'M', 0,
+   'R', 0,
+   'C', 0,
+   'A', 0,
+   'D', 0,
    'E', 0,
-   'P', 0,
-   'A', 0,
-   'D', 0,
    ' ', 0,
+   'S', 0,
+   'T', 0,
+   'I', 0,
+   'C', 0,
+   'K', 0,
 };
