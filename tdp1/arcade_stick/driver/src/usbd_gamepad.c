@@ -9,7 +9,7 @@
 
 // Cabecera del archivo
 #include "usbd_gamepad.h"
-#include "usbd_keyboard_endpoints.h"
+#include "hid_gamepad_endpoints.h"
 #include "sapi_board.h"
 
 // Macros

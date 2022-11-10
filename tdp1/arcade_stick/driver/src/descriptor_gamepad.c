@@ -11,7 +11,7 @@
 // Includes
 #include "lpc_app_usbd_cfg.h"
 #include "usbd_gamepad.h"
-#include "usbd_keyboard_endpoints.h"
+#include "hid_gamepad_endpoints.h"
 
 // Macros no definidas en sAPI (importado de TinyUSB)
 #define HID_PHYSICAL_MAX_N(x, n)                         HID_REPORT_ITEM(x, 4, 1, n)
