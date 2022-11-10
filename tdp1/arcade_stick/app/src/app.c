@@ -77,18 +77,6 @@ int main( void )
       // Leer entrada CH2 (eje Y: el 0 está arriba)
       uint16_t valorEjeY = adcRead( CH2 );
       
-      // MANDAR VALOR DE EJE X a TERMINAL
-      /*
-      char textoX[5], textoY[5];
-      itoa(valorEjeX, textoX, 10);
-      itoa(valorEjeY, textoY, 10);
-      uartWriteString( UART_USB, textoX );
-      uartWriteString( UART_USB, ", ");
-      uartWriteString( UART_USB, textoY );
-      uartWriteString( UART_USB, "\r\n");
-      delay(1000);
-      */
-      
       Joystick_Direccion dirs[2];
       
       Joystick_LeerDirs(valorEjeX, valorEjeY, dirs);
@@ -136,9 +124,6 @@ int main( void )
       
       X_VALUE = (int8_t) (x_aux - 128);
       Y_VALUE = (int8_t) (y_aux - 128);
-      
-      // Board_LED_Set(3, X_VALUE < 0);
-      // Board_LED_Set(4, Y_VALUE < 0);
       
       usbDeviceGamepadTasks();
       sleepUntilNextInterrupt();
