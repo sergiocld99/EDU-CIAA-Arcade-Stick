@@ -11,6 +11,15 @@
 
 // Variable auxiliar: bits de pulsadores a enviar
 static uint8_t aux_bitsPulsadores = 0x00;
+static uint16_t ant_valorEjeX = 512;
+static uint16_t ant_valorEjeY = 512;
+
+int8_t USB_ValorX(uint16_t valor){
+   int8_t diff = (int8_t) (valor - ant_valorEjeX);
+   ant_valorEjeX = valor;
+   
+   return diff;
+}
 
 uint8_t USB_MarcarBoton(uint8_t numero){
    if (numero >= CANT_PULSADORES) return 0;
