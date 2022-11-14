@@ -34,23 +34,23 @@
       #define PIN_S3    TEC3
       #define PIN_S4    TEC4
    #else
-      #define PIN_S1    GPIO1
-      #define PIN_S2    GPIO3
-      #define PIN_S3    GPIO5
-      #define PIN_S4    GPIO7
+      #define PIN_S1    GPIO3    // ex GPIO1
+      #define PIN_S2    GPIO7    // ex GPIO3
+      #define PIN_S3    GPIO6    // ex GPIO5
+      #define PIN_S4    GPIO1    // ex GPIO7
    #endif
    
-   #define PIN_S5    GPIO8
-   #define PIN_S6    GPIO6
+   #define PIN_S5    GPIO5    // ex GPIO8
+   #define PIN_S6    GPIO8    // ex GPIO6
 
    // ---------------------------- display --------------------------
 
    #define PIN_LCD_E    LCDEN
    #define PIN_LCD_RS   LCDRS
-   #define PIN_LCD_D4   LCD1
-   #define PIN_LCD_D5   LCD2
-   #define PIN_LCD_D6   LCD3
-   #define PIN_LCD_D7   LCD4
+   #define PIN_LCD_D4   LCD4     // ex LCD1
+   #define PIN_LCD_D5   LCD3     // ex LCD2
+   #define PIN_LCD_D6   LCD2     // ex LCD3
+   #define PIN_LCD_D7   LCD1     // ex LCD4
 
    // ---------------------------- leds -------------------------------
 
@@ -59,9 +59,9 @@
       #define PIN_LED_G    LEDG
       #define PIN_LED_B    LEDB
    #else
-      #define PIN_LED_R    GPIO0
-      #define PIN_LED_G    GPIO2
-      #define PIN_LED_B    GPIO4
+      #define PIN_LED_R    T_FIL3      // ex GPIO0
+      #define PIN_LED_G    T_FIL2      // ex GPIO2
+      #define PIN_LED_B    T_COL0      // ex GPIO4
    #endif
 
 
