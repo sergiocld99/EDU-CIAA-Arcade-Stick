@@ -10,9 +10,6 @@
    /*==================[inclusiones]============================================*/
    
    #include "sapi.h"        // <= Biblioteca sAPI
-   #include <stdlib.h>
-   #include <string.h>
-   #include <stdio.h>
    
    // Perifericos
    #include "joystick.h"
@@ -20,6 +17,9 @@
    
    // Utilidades
    #include "utils.h"
+   #include <stdlib.h>
+   #include <string.h>
+   #include <stdio.h>
    
    // API simplificada para comunicación USB
    #include "gamepad_api.h"
@@ -28,10 +28,15 @@
    // Si está definida la macro "Depuracion" se usan leds y pulsadores ya incorporados
    #include "mapeoGpio.h"
    
+   // Planificacion de tareas
+   #include "FreeRTOS.h"
+   #include "FreeRTOSConfig.h"
+   #include "task.h"
+   
 
    /*==================[macros]============================================*/
    
-   #define TICKRATE_HZ (1000)
+   // #define TICKRATE_HZ (1000)
 
 
 #endif

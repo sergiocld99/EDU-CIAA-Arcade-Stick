@@ -4,32 +4,18 @@
  * Fecha:
  *===========================================================================*/
 
-// Inclusiones
+// Cabecera del archivo
+#include "app.h"
 
-#include "app.h"         // <= Su propia cabecera
-
-static volatile uint32_t tick_ct = 0;
-static volatile uint8_t FLAG_UP = 0;
-static volatile uint8_t FLAG_DOWN = 0;
-static volatile uint8_t FLAG_LEFT = 0;
-static volatile uint8_t FLAG_RIGHT = 0;
+// Variables compartidas
 static volatile int8_t X_VALUE = 0;
 static volatile int8_t Y_VALUE = 0;
 
-void delayBloqueante(uint32_t ms){
-   uint32_t end = tick_ct + ms;
-   while (tick_ct < end) tick_ct++;
-}
-
-/* ESTO FUNCIONÓ EL 7/11 (PRESIONA 5 PRIMEROS BOTONES)
-void checkForGamepadStatus(void* unused){
-   usbDeviceGamepadPress(31);
-}
-*/
+// Prototipos de tareas
+void tareaControles(void*);
 
 void checkForPressedButtons(void* unused)
 {
-   if (!gpioRead(PIN_SW)) USB_MarcarBoton(6);
    if (!gpioRead(PIN_S1)) USB_MarcarBoton(0);
    if (!gpioRead(PIN_S2)) USB_MarcarBoton(1);
    if (!gpioRead(PIN_S3)) USB_MarcarBoton(2);
@@ -44,11 +30,6 @@ void checkForPressedButtons(void* unused)
 // FUNCION PRINCIPAL, PUNTO DE ENTRADA AL PROGRAMA LUEGO DE ENCENDIDO O RESET.
 int main( void )
 {
-   // ---------- CONFIGURACIONES ------------------------------
-   SystemCoreClockUpdate();
-   Board_Init();
-   SysTick_Config(SystemCoreClock / TICKRATE_HZ);
-   
    /* ------------- INICIALIZACIONES ------------- */
 
    /* Inicializar la placa */
@@ -76,9 +57,46 @@ int main( void )
    
    // Finalizo la inicializacion: Estado OK
    LED_EncenderVerde();
+   
+   
+   // ---------- PLANIFICACION DE TAREAS ----------------------
+
+   // Crear tarea en freeRTOS
+   xTaskCreate(
+      tareaControles,               // Funcion de la tarea a ejecutar
+      (const char *) "Controles",   // Nombre de la tarea como String amigable para el usuario
+      configMINIMAL_STACK_SIZE*2,   // Cantidad de stack de la tarea
+      0,                            // Parametros de tarea
+      tskIDLE_PRIORITY+1,           // Prioridad de la tarea
+      0                             // Puntero a la tarea creada en el sistema
+   );
+   
+   // Iniciar scheduler
+   vTaskStartScheduler();
+   
 
    // ---------- REPETIR POR SIEMPRE --------------------------
-   while (1) {
+
+   while (1);
+
+   // NO DEBE LLEGAR NUNCA AQUI, debido a que a este programa se ejecuta
+   // directamenteno sobre un microcontroladore y no es llamado por ningun
+   // Sistema Operativo, como en el caso de un programa para PC.
+   return 0;
+}
+
+
+
+// --------------- TAREAS A EJECUTAR ---------------------
+
+void tareaControles(void* params){
+   
+   // Tarea periodica cada 20 ms
+   portTickType xPeriodicity =  20 / portTICK_RATE_MS;
+   portTickType xLastWakeTime = xTaskGetTickCount();
+   
+   // Repetir por siempre
+   while(1){
       
       // Leer entrada CH3 (eje X: el 0 está izquierda)
       uint16_t valorEjeX = adcRead( CH3 );
@@ -86,63 +104,19 @@ int main( void )
       // Leer entrada CH2 (eje Y: el 0 está arriba)
       uint16_t valorEjeY = adcRead( CH2 );
       
-      Joystick_Direccion dirs[2];
-      
-      Joystick_LeerDirs(valorEjeX, valorEjeY, dirs);
-      apagarTodos();
-      
-      FLAG_UP = 0;
-      FLAG_DOWN = 0;
-      FLAG_LEFT = 0;
-      FLAG_RIGHT = 0;
-      
-      switch(dirs[0]){
-         case NONE:
-            break;
-         case LEFT:
-            Board_LED_Set(3, true);
-            FLAG_LEFT = 1;
-            break;
-         case RIGHT:
-            Board_LED_Set(4, true);
-            FLAG_RIGHT = 0;
-            break;
-         default:
-            break;
-      }
-      
-      switch(dirs[1]){
-         case NONE:
-            break;
-         case UP:
-            Board_LED_Set(1, true);
-            FLAG_UP = 1;
-            break;
-         case DOWN:
-            Board_LED_Set(2, true);
-            FLAG_DOWN = 1;
-            break;
-         default:
-            break;
-      }
-      
-      
-      // achicar entre 0 y 255
+      // reducir entre 0 y 255
       uint8_t x_aux = (uint8_t) (valorEjeX / 4);
       uint8_t y_aux = (uint8_t) (valorEjeY / 4);
       
+      // almacenar globalmente
       X_VALUE = (int8_t) (x_aux - 128);
       Y_VALUE = (int8_t) (y_aux - 128);
       
+      // actualizar reporte
       usbDeviceGamepadTasks();
-      sleepUntilNextInterrupt();
       
-      // Board_LED_Toggle(5);
-      delay(20);
+      // Envia la tarea al estado bloqueado durante xPeriodicity (delay periodico)
+      vTaskDelayUntil( &xLastWakeTime, xPeriodicity );
    }
-
-   // NO DEBE LLEGAR NUNCA AQUI, debido a que a este programa se ejecuta
-   // directamenteno sobre un microcontroladore y no es llamado por ningun
-   // Sistema Operativo, como en el caso de un programa para PC.
-   return 0;
+   
 }
