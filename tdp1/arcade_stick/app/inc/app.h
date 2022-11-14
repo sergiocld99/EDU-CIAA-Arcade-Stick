@@ -14,7 +14,11 @@
    #include <string.h>
    #include <stdio.h>
    
+   // Perifericos
    #include "joystick.h"
+   #include "led.h"
+   
+   // Utilidades
    #include "utils.h"
    
    // API simplificada para comunicación USB

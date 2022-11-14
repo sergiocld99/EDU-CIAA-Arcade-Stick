@@ -54,6 +54,12 @@ int main( void )
    /* Inicializar la placa */
    boardConfig();
    
+   // Inicializar componentes
+   LED_Init();
+   
+   // Estado Conectando...
+   LED_EncenderAzul();
+   
    // Configuración/Inicialización de HID Gamepad
    usbDeviceConfig(USB_HID_GAMEPAD);
    usbDeviceGamepadCheckCallbackSet(checkForPressedButtons);
@@ -67,6 +73,9 @@ int main( void )
    
    // Establecer T_COL1 como entrada digital
    gpioInit( T_COL1, GPIO_INPUT );
+   
+   // Finalizo la inicializacion: Estado OK
+   LED_EncenderVerde();
 
    // ---------- REPETIR POR SIEMPRE --------------------------
    while (1) {
