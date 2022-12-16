@@ -39,6 +39,7 @@ int main( void )
    boardConfig();
    
    // Inicializar componentes
+   delay(1000);
    LED_Init();
    Display_Init();
    
@@ -63,7 +64,7 @@ int main( void )
    // NOTA: NO USAR DELAY() PORQUE ROMPE LA EJECUCIÓN
    // DELAY NO ES COMPATIBLE CON FREERTOS
    
-   delay(1000);
+   delay(500);
    
    // Finalizo la inicializacion: Estado OK
    LED_EncenderVerde();
