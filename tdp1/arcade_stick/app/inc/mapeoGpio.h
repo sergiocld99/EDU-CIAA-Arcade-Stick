@@ -18,7 +18,7 @@
 
    /*==================[macros]=================================================*/
 
-   #define DEPURACION
+   // #define DEPURACION
 
    // ---------------------------- joystick -------------------------
 
@@ -47,10 +47,10 @@
 
    #define PIN_LCD_E    LCDEN
    #define PIN_LCD_RS   LCDRS
-   #define PIN_LCD_D4   LCD4     // ex LCD1
-   #define PIN_LCD_D5   LCD3     // ex LCD2
-   #define PIN_LCD_D6   LCD2     // ex LCD3
-   #define PIN_LCD_D7   LCD1     // ex LCD4
+   #define PIN_LCD_D4   LCD1     // ex LCD1
+   #define PIN_LCD_D5   LCD2     // ex LCD2
+   #define PIN_LCD_D6   LCD3     // ex LCD3
+   #define PIN_LCD_D7   LCD4     // ex LCD4
 
    // ---------------------------- leds -------------------------------
 

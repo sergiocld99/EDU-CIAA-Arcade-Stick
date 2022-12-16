@@ -31,13 +31,17 @@ const uint8_t Gamepad_ReportDescriptor[] = {
    HID_Usage( HID_USAGE_GENERIC_Y ) ,
    // HID_Usage( HID_USAGE_GENERIC_Z ) ,
    // HID_Usage( HID_USAGE_GENERIC_RZ ) ,
-   HID_Usage( HID_USAGE_GENERIC_RX ) ,
-   HID_Usage( HID_USAGE_GENERIC_RY ) ,
+   // HID_Usage( HID_USAGE_GENERIC_RX ) ,
+   // HID_Usage( HID_USAGE_GENERIC_RY ) ,
    HID_LogicalMin( -127 ),
    HID_LogicalMax( 127 ),
-   HID_ReportCount(4),                    // 4 x 8 bytes
+   HID_ReportCount(2),                    // 2 x 8 bytes
    HID_ReportSize(8),
-   HID_Input(HID_Data | HID_Variable | HID_Relative),
+   HID_Input(HID_Data | HID_Variable | HID_Absolute),    // absoluto para que quede centrado
+   // Relleno
+   HID_ReportCount(2),
+   HID_ReportSize(8),                     // 2 x 8 bytes
+   HID_Input(HID_Constant), 
    // Mapeo de 8-bit DPad / Hat
    HID_UsagePage( HID_USAGE_PAGE_GENERIC ),
    HID_Usage( HID_USAGE_GENERIC_HATSWITCH ),

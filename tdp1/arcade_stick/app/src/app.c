@@ -16,10 +16,13 @@ void tareaControles(void*);
 
 void checkForPressedButtons(void* unused)
 {
+   // Testeado: OK
    if (!gpioRead(PIN_S1)) USB_MarcarBoton(0);
    if (!gpioRead(PIN_S2)) USB_MarcarBoton(1);
    if (!gpioRead(PIN_S3)) USB_MarcarBoton(2);
    if (!gpioRead(PIN_S4)) USB_MarcarBoton(3);   
+   if (!gpioRead(PIN_S5)) USB_MarcarBoton(4);
+   if (!gpioRead(PIN_S6)) USB_MarcarBoton(5);
    
    USB_PresionarBotones();
    usbDeviceGamepadMove(X_VALUE, 0);
@@ -37,9 +40,11 @@ int main( void )
    
    // Inicializar componentes
    LED_Init();
+   Display_Init();      // ESTO CAUSA UN BLOQUEO
    
    // Estado Conectando...
    LED_EncenderAzul();
+   Display_Write("Conectando...");
    
    // Configuración/Inicialización de HID Gamepad
    usbDeviceConfig(USB_HID_GAMEPAD);
@@ -55,9 +60,18 @@ int main( void )
    // Establecer T_COL1 como entrada digital
    gpioInit( T_COL1, GPIO_INPUT );
    
+   // NOTA: NO USAR DELAY() PORQUE ROMPE LA EJECUCIÓN
+   // DELAY NO ES COMPATIBLE CON FREERTOS
+   
    // Finalizo la inicializacion: Estado OK
    LED_EncenderVerde();
+   Display_Write("Listo para jugar");
    
+   gpioWrite(LEDG, ON);
+   gpioWrite(T_COL0, ON);
+   gpioWrite(T_FIL2, ON);
+   gpioWrite(T_FIL3, ON);
+   gpioWrite(T_FIL0, ON);
    
    // ---------- PLANIFICACION DE TAREAS ----------------------
 
@@ -98,11 +112,13 @@ void tareaControles(void* params){
    // Repetir por siempre
    while(1){
       
-      // Leer entrada CH3 (eje X: el 0 está izquierda)
-      uint16_t valorEjeX = adcRead( CH3 );
+      // Leer eje X: el 0 está izquierda
+      // EL EJE X DE NUESTRA PLACA ESTÁ CONECTADO AL CANAL 2
+      uint16_t valorEjeX = adcRead( CH2 );
       
-      // Leer entrada CH2 (eje Y: el 0 está arriba)
-      uint16_t valorEjeY = adcRead( CH2 );
+      // Leer eje Y: el 0 está arriba
+      // EL EJE Y DE NUESTRA PLACA ESTÁ CONECTADO AL CANAL 1
+      uint16_t valorEjeY = adcRead( CH1 );
       
       // reducir entre 0 y 255
       uint8_t x_aux = (uint8_t) (valorEjeX / 4);

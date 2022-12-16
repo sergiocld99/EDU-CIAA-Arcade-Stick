@@ -27,6 +27,7 @@
    /*==================[declaraciones de funciones públicas]====================*/
    
    void Display_Init();
+   void Display_Write(char* msg);
 
 
 /*==================[end of file]============================================*/
