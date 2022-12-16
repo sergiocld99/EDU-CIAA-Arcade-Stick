@@ -30,11 +30,6 @@
    // Si está definida la macro "Depuracion" se usan leds y pulsadores ya incorporados
    #include "mapeoGpio.h"
    
-   // Planificacion de tareas
-   #include "FreeRTOS.h"
-   #include "FreeRTOSConfig.h"
-   #include "task.h"
-   
 
    /*==================[macros]============================================*/
    

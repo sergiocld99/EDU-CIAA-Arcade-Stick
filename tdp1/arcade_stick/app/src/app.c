@@ -12,7 +12,7 @@ static volatile int8_t X_VALUE = 0;
 static volatile int8_t Y_VALUE = 0;
 
 // Prototipos de tareas
-void tareaControles(void*);
+void tareaControles();
 
 void checkForPressedButtons(void* unused)
 {
@@ -40,7 +40,7 @@ int main( void )
    
    // Inicializar componentes
    LED_Init();
-   Display_Init();      // ESTO CAUSA UN BLOQUEO
+   Display_Init();
    
    // Estado Conectando...
    LED_EncenderAzul();
@@ -63,35 +63,21 @@ int main( void )
    // NOTA: NO USAR DELAY() PORQUE ROMPE LA EJECUCIÓN
    // DELAY NO ES COMPATIBLE CON FREERTOS
    
+   delay(1000);
+   
    // Finalizo la inicializacion: Estado OK
    LED_EncenderVerde();
    Display_Write("Listo para jugar");
    
    gpioWrite(LEDG, ON);
-   gpioWrite(T_COL0, ON);
-   gpioWrite(T_FIL2, ON);
-   gpioWrite(T_FIL3, ON);
-   gpioWrite(T_FIL0, ON);
-   
-   // ---------- PLANIFICACION DE TAREAS ----------------------
-
-   // Crear tarea en freeRTOS
-   xTaskCreate(
-      tareaControles,               // Funcion de la tarea a ejecutar
-      (const char *) "Controles",   // Nombre de la tarea como String amigable para el usuario
-      configMINIMAL_STACK_SIZE*2,   // Cantidad de stack de la tarea
-      0,                            // Parametros de tarea
-      tskIDLE_PRIORITY+1,           // Prioridad de la tarea
-      0                             // Puntero a la tarea creada en el sistema
-   );
-   
-   // Iniciar scheduler
-   vTaskStartScheduler();
    
 
    // ---------- REPETIR POR SIEMPRE --------------------------
 
-   while (1);
+   while (1){
+      tareaControles();
+      delay(20);
+   }
 
    // NO DEBE LLEGAR NUNCA AQUI, debido a que a este programa se ejecuta
    // directamenteno sobre un microcontroladore y no es llamado por ningun
@@ -103,16 +89,9 @@ int main( void )
 
 // --------------- TAREAS A EJECUTAR ---------------------
 
-void tareaControles(void* params){
+void tareaControles(){
    
-   // Tarea periodica cada 20 ms
-   portTickType xPeriodicity =  20 / portTICK_RATE_MS;
-   portTickType xLastWakeTime = xTaskGetTickCount();
-   
-   // Repetir por siempre
-   while(1){
-      
-      // Leer eje X: el 0 está izquierda
+   // Leer eje X: el 0 está izquierda
       // EL EJE X DE NUESTRA PLACA ESTÁ CONECTADO AL CANAL 2
       uint16_t valorEjeX = adcRead( CH2 );
       
@@ -130,9 +109,5 @@ void tareaControles(void* params){
       
       // actualizar reporte
       usbDeviceGamepadTasks();
-      
-      // Envia la tarea al estado bloqueado durante xPeriodicity (delay periodico)
-      vTaskDelayUntil( &xLastWakeTime, xPeriodicity );
-   }
    
 }
