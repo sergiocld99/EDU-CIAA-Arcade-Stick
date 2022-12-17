@@ -34,18 +34,6 @@ typedef struct {
 	uint8_t tx_busy;	                     /*!< Flag indicating whether a report is pending in endpoint queue. */
 } Gamepad_Ctrl_T;
 
-/// HID Gamepad Protocol Report.
-typedef struct TU_ATTR_PACKED
-{
-   int8_t  x;         ///< Delta x  movement of left analog-stick
-   int8_t  y;         ///< Delta y  movement of left analog-stick
-   int8_t  z;         ///< Delta z  movement of right analog-joystick
-   int8_t  rz;        ///< Delta Rz movement of right analog-joystick
-   int8_t  rx;        ///< Delta Rx movement of analog left trigger
-   int8_t  ry;        ///< Delta Ry movement of analog right trigger
-   uint8_t hat;       ///< Buttons mask for currently pressed buttons in the DPad/hat
-   uint32_t buttons;  ///< Buttons mask for currently pressed buttons
-} hid_gamepad_report_t;
 
 static Gamepad_Ctrl_T g_gamePad;
 callBackFuncPtr_t gamepadCheckFunction = NULL;
@@ -148,21 +136,24 @@ ErrorCode_t usbDeviceGamepadInit(USBD_HANDLE_T hUsb, USB_INTERFACE_DESCRIPTOR *p
 }
 
 
-void usbDeviceGamepadTasks(void){
+bool_t usbDeviceGamepadTasks(void){
    
    // Primero nos aseguramos que el dispositivo esté configurado
    if (USB_IsConfigured(g_gamePad.hUsb)){
       
       // Enviar datos de reporte si esta libre
       if (g_gamePad.tx_busy == 0){
-         g_gamePad.tx_busy = 1;      // marcar como ocupado
+         g_gamePad.tx_busy = 1;                 // marcar como ocupado
          Gamepad_UpdateReport();                // cargar reporte
          USBD_API->hw->WriteEP(g_gamePad.hUsb, HID_EP_IN, &g_gamePad.report[0], GAMEPAD_REPORT_SIZE);
-         // Board_LED_Toggle(1);
       }
+      
+      return TRUE;
+      
    } else {
       // Si no está configurado, marcar como no ocupado
       g_gamePad.tx_busy = 0;
+      return FALSE;
    }
 }
 

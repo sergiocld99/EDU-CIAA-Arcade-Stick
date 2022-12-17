@@ -36,7 +36,7 @@
       uint32_t *mem_size
    );
    
-   void usbDeviceGamepadTasks(void);
+   bool_t usbDeviceGamepadTasks(void);
    
    void usbDeviceGamepadPress(uint8_t);
    void usbDeviceGamepadMove(int8_t value, uint8_t axis);

@@ -11,8 +11,9 @@
 static volatile int8_t X_VALUE = 0;
 static volatile int8_t Y_VALUE = 0;
 
-// Prototipos de tareas
-void tareaControles();
+// Prototipos de funciones privadas
+bool_t tareaControles();
+void mostrarErrorConexion();
 
 void checkForPressedButtons(void* unused)
 {
@@ -48,36 +49,40 @@ int main( void )
    Display_Write("Conectando...");
    
    // Configuración/Inicialización de HID Gamepad
-   usbDeviceConfig(USB_HID_GAMEPAD);
+   bool_t driverSuccess = usbDeviceConfig(USB_HID_GAMEPAD);
    usbDeviceGamepadCheckCallbackSet(checkForPressedButtons);
    
    // Habilitar ADC
    adcConfig( ADC_ENABLE ); /* ADC */
    
-   // Habilitar UART (DEBUG)
-   // Inicializar UART_USB a 115200 baudios
-   uartConfig( UART_USB, 115200 );
-   
    // Establecer T_COL1 como entrada digital
    gpioInit( T_COL1, GPIO_INPUT );
    
-   // NOTA: NO USAR DELAY() PORQUE ROMPE LA EJECUCIÓN
    // DELAY NO ES COMPATIBLE CON FREERTOS
-   
    delay(500);
    
-   // Finalizo la inicializacion: Estado OK
-   LED_EncenderVerde();
-   Display_Write("Listo para jugar");
-   
-   gpioWrite(LEDG, ON);
+   if (driverSuccess) {
+      // Finalizo la inicializacion: Estado OK
+      LED_EncenderVerde();
+      Display_Write("Listo para jugar");
+      gpioWrite(LEDG, ON);
+   } else {
+      mostrarErrorConexion();
+   }
    
 
    // ---------- REPETIR POR SIEMPRE --------------------------
 
+   bool_t success;
+
    while (1){
-      tareaControles();
-      delay(20);
+      success = tareaControles();
+      
+      if (success) delay(20);
+      else {
+         mostrarErrorConexion();
+         while(!success);
+      }
    }
 
    // NO DEBE LLEGAR NUNCA AQUI, debido a que a este programa se ejecuta
@@ -90,25 +95,32 @@ int main( void )
 
 // --------------- TAREAS A EJECUTAR ---------------------
 
-void tareaControles(){
+bool_t tareaControles(){
    
    // Leer eje X: el 0 está izquierda
-      // EL EJE X DE NUESTRA PLACA ESTÁ CONECTADO AL CANAL 2
-      uint16_t valorEjeX = adcRead( CH2 );
+   // EL EJE X DE NUESTRA PLACA ESTÁ CONECTADO AL CANAL 2
+   uint16_t valorEjeX = adcRead( CH2 );
       
-      // Leer eje Y: el 0 está arriba
-      // EL EJE Y DE NUESTRA PLACA ESTÁ CONECTADO AL CANAL 1
-      uint16_t valorEjeY = adcRead( CH1 );
+   // Leer eje Y: el 0 está arriba
+   // EL EJE Y DE NUESTRA PLACA ESTÁ CONECTADO AL CANAL 1
+   uint16_t valorEjeY = adcRead( CH1 );
       
-      // reducir entre 0 y 255
-      uint8_t x_aux = (uint8_t) (valorEjeX / 4);
-      uint8_t y_aux = (uint8_t) (valorEjeY / 4);
+   // reducir entre 0 y 255
+   uint8_t x_aux = (uint8_t) (valorEjeX / 4);
+   uint8_t y_aux = (uint8_t) (valorEjeY / 4);
       
-      // almacenar globalmente
-      X_VALUE = (int8_t) (x_aux - 128);
-      Y_VALUE = (int8_t) (y_aux - 128);
+   // almacenar globalmente
+   X_VALUE = (int8_t) (x_aux - 128);
+   Y_VALUE = (int8_t) (y_aux - 128);
       
-      // actualizar reporte
-      usbDeviceGamepadTasks();
+   // actualizar reporte
+   return usbDeviceGamepadTasks();
+}
+
+void mostrarErrorConexion(){
+   LED_EncenderRojo();
+   Display_Write("USB incorrecto");
    
+   gpioWrite(LEDG, OFF);
+   gpioWrite(LEDR, ON);
 }
