@@ -1,12 +1,12 @@
 /*============================================================================
  * Licencia:
- * Autor:      Calderón Sergio Leandro
+ * Autor:      Calderï¿½n Sergio Leandro
  * Fecha:      1 de noviembre de 2022
  *===========================================================================*/
 
 // En este header se indica cual es
 // el pin de EDU CIAA utilizado para 
-// cada periférico del Arcade Stick
+// cada perifï¿½rico del Arcade Stick
 
 #ifndef _MAPEOGPIO_H_
    #define _MAPEOGPIO_H_
@@ -59,9 +59,10 @@
       #define PIN_LED_G    LEDG
       #define PIN_LED_B    LEDB
    #else
-      #define PIN_LED_R    T_FIL3      // ex GPIO0
-      #define PIN_LED_G    T_FIL2      // ex GPIO2
-      #define PIN_LED_B    T_COL0      // ex GPIO4
+      // Verificado
+      #define PIN_LED_R    T_FIL2      // ex GPIO0
+      #define PIN_LED_G    T_COL0      // ex GPIO2
+      #define PIN_LED_B    T_FIL3      // ex GPIO4
    #endif
 
 

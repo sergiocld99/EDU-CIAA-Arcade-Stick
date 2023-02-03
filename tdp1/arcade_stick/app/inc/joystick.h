@@ -22,8 +22,10 @@
 
    /*==================[declaraciones de datos externos]========================*/
 
-   /*==================[declaraciones de funciones públicas]====================*/
+   /*==================[declaraciones de funciones pï¿½blicas]====================*/
    
+   void Joystick_Init();
+
    Joystick_Direccion Joystick_ProcesarDir(uint16_t valorEjeX, uint16_t valorEjeY);
    void Joystick_LeerDirs(uint16_t valorEjeX, uint16_t valorEjeY, Joystick_Direccion* dirs);
    

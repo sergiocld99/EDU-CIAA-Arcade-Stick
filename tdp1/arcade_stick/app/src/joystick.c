@@ -1,5 +1,10 @@
 #include "joystick.h"
 
+void Joystick_Init(){
+   // Inicializar y habilitar ADC
+   adcConfig(ADC_ENABLE);
+   gpioInit(T_COL1, GPIO_INPUT);    // T_COL1 como entrada digital
+}
 
 Joystick_Direccion Joystick_ProcesarDir(uint16_t valorEjeX, uint16_t valorEjeY){
    /*

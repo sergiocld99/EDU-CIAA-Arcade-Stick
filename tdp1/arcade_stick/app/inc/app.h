@@ -12,10 +12,14 @@
    #include "sapi.h"        // <= Biblioteca sAPI
    
    // Perifericos
-   #include "joystick.h"
    #include "led.h"
+   #include "joystick.h"
+   #include "buttons.h"
    #include "display_api.h"
    // #include "display_16x1.h"
+
+   // MÃ¡quina de estados
+   #include "MEF.h"
    
    // Utilidades
    #include "utils.h"
@@ -23,11 +27,11 @@
    #include <string.h>
    #include <stdio.h>
    
-   // API simplificada para comunicación USB
+   // API simplificada para comunicaciï¿½n USB
    #include "gamepad_api.h"
    
    // Mapeo de los pines a utilizar para cada funcionalidad
-   // Si está definida la macro "Depuracion" se usan leds y pulsadores ya incorporados
+   // Si estï¿½ definida la macro "Depuracion" se usan leds y pulsadores ya incorporados
    #include "mapeoGpio.h"
    
 

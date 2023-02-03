@@ -31,32 +31,38 @@ void checkForPressedButtons(void* unused)
    usbDeviceGamepadHat(!gpioRead(PIN_SW));
 }
 
+void initComponents(){
+   // Inicializar EDU-CIAA
+   boardConfig();
+
+   // Inicializar LED RGB
+   LED_Init();
+
+   // Inicializar joystick (ADC)
+   Joystick_Init();
+
+   // Inicializar pulsadores
+   Buttons_Init();
+
+   // Inicializar display
+   delay(900);
+   Display_Init();
+}
+
 // FUNCION PRINCIPAL, PUNTO DE ENTRADA AL PROGRAMA LUEGO DE ENCENDIDO O RESET.
 int main( void )
 {
    /* ------------- INICIALIZACIONES ------------- */
-
-   /* Inicializar la placa */
-   boardConfig();
-   
-   // Inicializar componentes
-   delay(1000);
-   LED_Init();
-   Display_Init();
+   initComponents();
+   MEF_Init();
    
    // Estado Conectando...
    LED_EncenderAzul();
    Display_Write("Conectando...");
    
-   // Configuración/Inicialización de HID Gamepad
+   // Configuracion e Inicializacion de HID Gamepad
    bool_t driverSuccess = usbDeviceConfig(USB_HID_GAMEPAD);
    usbDeviceGamepadCheckCallbackSet(checkForPressedButtons);
-   
-   // Habilitar ADC
-   adcConfig( ADC_ENABLE ); /* ADC */
-   
-   // Establecer T_COL1 como entrada digital
-   gpioInit( T_COL1, GPIO_INPUT );
    
    // DELAY NO ES COMPATIBLE CON FREERTOS
    delay(500);
@@ -97,12 +103,12 @@ int main( void )
 
 bool_t tareaControles(){
    
-   // Leer eje X: el 0 está izquierda
-   // EL EJE X DE NUESTRA PLACA ESTÁ CONECTADO AL CANAL 2
+   // Leer eje X: el 0 estï¿½ izquierda
+   // EL EJE X DE NUESTRA PLACA ESTï¿½ CONECTADO AL CANAL 2
    uint16_t valorEjeX = adcRead( CH2 );
       
-   // Leer eje Y: el 0 está arriba
-   // EL EJE Y DE NUESTRA PLACA ESTÁ CONECTADO AL CANAL 1
+   // Leer eje Y: el 0 estï¿½ arriba
+   // EL EJE Y DE NUESTRA PLACA ESTï¿½ CONECTADO AL CANAL 1
    uint16_t valorEjeY = adcRead( CH1 );
       
    // reducir entre 0 y 255

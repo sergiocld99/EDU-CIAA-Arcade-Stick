@@ -1,6 +1,6 @@
 /*============================================================================
  * Licencia:
- * Autor:      Calderón Sergio Leandro
+ * Autor:      Calderï¿½n Sergio Leandro
  * Fecha:      1 de noviembre de 2022
  *===========================================================================*/
 
@@ -9,7 +9,8 @@
 
    /*==================[inclusiones]============================================*/
    
-  
+   #include "mapeoGpio.h"
+   #include "sapi.h"
 
    /*==================[macros]=================================================*/
 
@@ -24,8 +25,9 @@
    /*==================[declaraciones de datos externos]========================*/
 
 
-   /*==================[declaraciones de funciones públicas]====================*/
+   /*==================[declaraciones de funciones pÃºblicas]====================*/
    
+   void Buttons_Init();
 
 
 
