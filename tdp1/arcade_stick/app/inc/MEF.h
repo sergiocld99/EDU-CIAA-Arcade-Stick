@@ -1,6 +1,25 @@
+/*============================================================================
+ * Licencia:
+ * Autor:
+ * Fecha:
+ *===========================================================================*/
 
+#ifndef _MEF_H_
+    #define _MEF_H_
 
-void MEF_Init();
+    /*==================[inclusiones]============================================*/
 
+    #include "components.h"
+    #include "gamepad_api.h"
 
-void MEF_Connecting();
+    /*============= [ declaración de funciones públicas ] ====================== */
+
+    // Establece el estado inicial de la máquina de estados
+    void MEF_Start();
+
+    // Ejecuta el estado actual y establece el próximo
+    void MEF_Update();
+
+    /* ========================================================================= */
+
+#endif 

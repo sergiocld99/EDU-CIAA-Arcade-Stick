@@ -1,6 +1,6 @@
 /*============================================================================
  * Licencia:
- * Autor:      Calderón Sergio Leandro
+ * Autor:      Calderï¿½n Sergio Leandro
  * Fecha:      1 de noviembre de 2022
  *===========================================================================*/
 
@@ -13,11 +13,13 @@
    #include "sapi.h"             // para gpioInit() y gpioWrite()
 
 
-   /*==================[declaraciones de funciones públicas]====================*/
+   /*==================[declaraciones de funciones pï¿½blicas]====================*/
    
    // Configura los pines utilizados como salida
    void LED_Init();
    
+   void LED_Alternar(uint8_t periodo);
+
    void LED_ApagarTodos();
    void LED_EncenderRojo();
    void LED_EncenderVerde();

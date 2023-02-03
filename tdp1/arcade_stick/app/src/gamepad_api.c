@@ -6,26 +6,79 @@
 / ------------------------------------------------------- */
 
 // Includes
-#include "sapi_datatypes.h"
-#include "usbd_gamepad.h"
+#include "gamepad_api.h"
+
+// Variables compartidas
+static volatile int8_t X_VALUE = 0;
+static volatile int8_t Y_VALUE = 0;
 
 // Variable auxiliar: bits de pulsadores a enviar
 static uint8_t aux_bitsPulsadores = 0x00;
-static uint16_t ant_valorEjeX = 512;
-static uint16_t ant_valorEjeY = 512;
 
-int8_t USB_ValorX(uint16_t valor){
-   int8_t diff = (int8_t) (valor - ant_valorEjeX);
-   ant_valorEjeX = valor;
+// Prototipos de funciones privadas
+static int8_t convertRawToSigned(uint16_t);
+
+
+void checkForPressedButtons(void* unused)
+{
+   // Leer pulsadores y marcar seleccionados
+   if (!gpioRead(PIN_S1)) USB_MarcarBoton(0);
+   if (!gpioRead(PIN_S2)) USB_MarcarBoton(1);
+   if (!gpioRead(PIN_S3)) USB_MarcarBoton(2);
+   if (!gpioRead(PIN_S4)) USB_MarcarBoton(3);   
+   if (!gpioRead(PIN_S5)) USB_MarcarBoton(4);
+   if (!gpioRead(PIN_S6)) USB_MarcarBoton(5);
+
+   // Actualizar pulsadores activos en PC
+   USB_PresionarBotones();
+
+   // Enviar posici贸n de los ejes X e Y
+   usbDeviceGamepadMove(X_VALUE, 0);
+   usbDeviceGamepadMove(Y_VALUE, 1);
    
-   return diff;
+   // Enviar estado del Switch
+   usbDeviceGamepadHat(!gpioRead(PIN_SW));
 }
+
+
+// ---------------------- Implementaci贸n de funciones p煤blicas -------------------- //
+
+bool_t USB_Init(){
+   // Configurar driver y establecer conexi贸n con PC
+   bool_t driverSuccess = usbDeviceConfig(USB_HID_GAMEPAD);
+
+   if (driverSuccess){
+      // Asignar funci贸n de actualizaci贸n de pulsadores
+      usbDeviceGamepadCheckCallbackSet(checkForPressedButtons);
+      return true;
+   } else {
+      return false;
+   }
+
+}
+
+// Copiado desde tareaControles();
+bool_t USB_Update(){
+   // Leer eje X: el 0 est谩 a la izquierda
+   uint16_t valorEjeX = Joystick_LeerX();
+      
+   // Leer eje Y: el 0 est谩 hacia arriba
+   uint16_t valorEjeY = Joystick_LeerY();
+
+   // Reducir valores al rango del driver
+   X_VALUE = convertRawToSigned(valorEjeX);
+   Y_VALUE = convertRawToSigned(valorEjeY);
+      
+   // Actualizar reporte
+   return usbDeviceGamepadTasks();
+}
+
 
 uint8_t USB_MarcarBoton(uint8_t numero){
    if (numero >= CANT_PULSADORES) return 0;
    
-   // Los bits correspondientes a cada pulsador est醤
-   // ordenados del menos al m醩 significativo.
+   // Los bits correspondientes a cada pulsador est谩n
+   // ordenados del menos al m谩s significativo.
    
    // Ejemplo: 31 representa a los primeros 5 pulsadores activos
    
@@ -37,6 +90,13 @@ void USB_PresionarBotones(){
    // Escribir el byte del reporte correspondiente a los pulsadores
    usbDeviceGamepadPress(aux_bitsPulsadores);
    
-   // Una vez enviado, se reinicia para la pr髕ima iteraci髇
+   // Una vez enviado, se reinicia para la pr贸xima iteraci贸n
    aux_bitsPulsadores = 0x00;
+}
+
+// ----------------------- Implementaci贸n de funciones privadas -----------------
+
+static int8_t convertRawToSigned(uint16_t raw){
+   uint8_t reduced = (uint8_t) (raw / 4);
+   return (int8_t) (reduced - 128);
 }

@@ -22,8 +22,8 @@
 
    // ---------------------------- joystick -------------------------
 
-   #define PIN_VRX   CH3
-   #define PIN_VRY   CH2
+   #define PIN_VRX   CH2
+   #define PIN_VRY   CH1
    #define PIN_SW    T_COL1
 
    // ---------------------------- pulsadores -----------------------

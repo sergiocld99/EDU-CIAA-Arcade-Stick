@@ -1,9 +1,23 @@
 #include "joystick.h"
 
+// Este módulo es el único que tiene acceso directo a las funciones del ADC
+
 void Joystick_Init(){
    // Inicializar y habilitar ADC
    adcConfig(ADC_ENABLE);
-   gpioInit(T_COL1, GPIO_INPUT);    // T_COL1 como entrada digital
+
+   // Asignar pin conectado al Switch como entrada digital
+   gpioInit(PIN_SW, GPIO_INPUT);
+}
+
+
+uint16_t Joystick_LeerX(){
+   return adcRead(PIN_VRX);
+}
+
+
+uint16_t Joystick_LeerY(){
+   return adcRead(PIN_VRY);
 }
 
 Joystick_Direccion Joystick_ProcesarDir(uint16_t valorEjeX, uint16_t valorEjeY){
