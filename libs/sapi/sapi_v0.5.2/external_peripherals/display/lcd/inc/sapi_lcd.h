@@ -86,10 +86,10 @@ extern "C" {
 		#define LCD_HD44780_RS          GPIO7    // Register select bit. RS = 0 to select command register, RS = 1 to select data register.
 	#elif (BOARD == edu_ciaa_nxp)
 		// Configure LCD pins
-		#define LCD_HD44780_D7          LCD4   // Data bit 7.
-		#define LCD_HD44780_D6          LCD3   // Data bit 4.
-		#define LCD_HD44780_D5          LCD2   // Data bit 5.
-		#define LCD_HD44780_D4          LCD1   // Data bit 4.
+		#define LCD_HD44780_D7          LCD1   // Data bit 7. MODIFICADO
+		#define LCD_HD44780_D6          LCD2   // Data bit 4. MODIFICADO
+		#define LCD_HD44780_D5          LCD3   // Data bit 5. MODIFICADO
+		#define LCD_HD44780_D4          LCD4   // Data bit 4. MODIFICADO
 		#define LCD_HD44780_BACKLIGHT   GPIO0  // Backlight.
 		#define LCD_HD44780_EN          LCDEN  // Enable bit.
 		#define LCD_HD44780_RW          GND    // Read/Write bit. R/W = 0 for write, R/W = 1 for read (LCD_RW pin connected to GND).

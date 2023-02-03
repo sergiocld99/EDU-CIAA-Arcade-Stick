@@ -3,15 +3,23 @@
 
    /*==================[inclusiones]============================================*/
    
-   #include "sapi_datatypes.h"
+   #include "sapi.h"
+   #include "usbd_gamepad.h"
 
+   #include "joystick.h"      // lectura de ejes X,Y
+   #include "buttons.h"       // Lectura de pulsadores 
+   #include "mapeoGpio.h"
    
-   /*==================[definición de tipos]============================================*/
    
+   /*==================[declaraciones de funciones pÃºblicas]====================*/
    
-   /*==================[declaraciones de funciones públicas]====================*/
-   
-   int8_t USB_ValorX(uint8_t valor);
+   bool_t USB_Init();
+
+
+   bool_t USB_Update();
+
+
+   bool_t USB_Attempt();
    
    uint8_t USB_MarcarBoton(uint8_t numero);
    void USB_PresionarBotones();
