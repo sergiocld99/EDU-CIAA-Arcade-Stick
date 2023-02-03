@@ -1,8 +1,8 @@
 /**
    
-   Código fuente basado en usbd_keyboard de sAPI, adaptado a un Gamepad
+   Cï¿½digo fuente basado en usbd_keyboard de sAPI, adaptado a un Gamepad
    
-   Autor: Calderón Sergio
+   Autor: Calderï¿½n Sergio
    Fecha: 24 de octubre de 2022
 
 **/
@@ -102,7 +102,7 @@ ErrorCode_t usbDeviceGamepadInit(USBD_HANDLE_T hUsb, USB_INTERFACE_DESCRIPTOR *p
    USB_HID_REPORT_T reports_data[1];
    ErrorCode_t ret = LPC_OK;
    
-   // Configurar parámetros HID
+   // Configurar parï¿½metros HID
    memset((void *) &hid_param, 0, sizeof(USBD_HID_INIT_PARAM_T));
    hid_param.max_reports = 1;
    hid_param.mem_base = *mem_base;
@@ -110,7 +110,7 @@ ErrorCode_t usbDeviceGamepadInit(USBD_HANDLE_T hUsb, USB_INTERFACE_DESCRIPTOR *p
    hid_param.intf_desc = (uint8_t *) pIntfDesc;
    
    // Funciones definidas para Gamepad
-   // Se debe respetar el prototipo según usbd_hiduser.h (de sAPI)
+   // Se debe respetar el prototipo segï¿½n usbd_hiduser.h (de sAPI)
    hid_param.HID_GetReport = Gamepad_GetReport;
    hid_param.HID_SetReport = Gamepad_SetReport;
    hid_param.HID_EpIn_Hdlr = Gamepad_EpIN_Hdlr;
@@ -121,24 +121,24 @@ ErrorCode_t usbDeviceGamepadInit(USBD_HANDLE_T hUsb, USB_INTERFACE_DESCRIPTOR *p
    reports_data[0].desc = (uint8_t *) &Gamepad_ReportDescriptor[0];
    hid_param.report_data = reports_data;
    
-   // Fin de inicialización con USBD API
+   // Fin de inicializaciï¿½n con USBD API
    ret = USBD_API->hid->init(hUsb, &hid_param);
    
-   // Actualizar parámetros por referencia de memoria
+   // Actualizar parï¿½metros por referencia de memoria
    *mem_base = hid_param.mem_base;
    *mem_size = hid_param.mem_size;
    
    g_gamePad.hUsb = hUsb;
    g_gamePad.tx_busy = 0;
    
-   // Se devuelve estado resultado de la inicialización
+   // Se devuelve estado resultado de la inicializaciÃ³n
    return ret;
 }
 
 
 bool_t usbDeviceGamepadTasks(void){
    
-   // Primero nos aseguramos que el dispositivo esté configurado
+   // Primero nos aseguramos que el dispositivo estÃ© configurado
    if (USB_IsConfigured(g_gamePad.hUsb)){
       
       // Enviar datos de reporte si esta libre
@@ -151,7 +151,7 @@ bool_t usbDeviceGamepadTasks(void){
       return TRUE;
       
    } else {
-      // Si no está configurado, marcar como no ocupado
+      // Si no estÃ¡ configurado, marcar como no ocupado
       g_gamePad.tx_busy = 0;
       return FALSE;
    }

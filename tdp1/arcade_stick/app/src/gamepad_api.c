@@ -57,7 +57,6 @@ bool_t USB_Init(){
 
 }
 
-// Copiado desde tareaControles();
 bool_t USB_Update(){
    // Leer eje X: el 0 está a la izquierda
    uint16_t valorEjeX = Joystick_LeerX();
@@ -70,6 +69,12 @@ bool_t USB_Update(){
    Y_VALUE = convertRawToSigned(valorEjeY);
       
    // Actualizar reporte
+   return usbDeviceGamepadTasks();
+}
+
+
+bool_t USB_Attempt(){
+   // No se realiza lectura del joystick, es una prueba de envío
    return usbDeviceGamepadTasks();
 }
 

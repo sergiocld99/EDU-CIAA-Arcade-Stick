@@ -20,6 +20,7 @@
    bool_t USB_Update();
 
 
+   bool_t USB_Attempt();
    
    uint8_t USB_MarcarBoton(uint8_t numero);
    void USB_PresionarBotones();

@@ -1,10 +1,12 @@
 #include "MEF.h"
 
+// Declaración de estados
 typedef enum {
     CONNECTING, FAIL, CHECKING, READY
 } MEF_Status;
 
-MEF_Status status;
+// Variables privadas
+static MEF_Status status;
 
 // ------------------------- Prototipos de funciones privadas ------------------ //
 
@@ -14,32 +16,24 @@ static void MEF_Fail();
 static void MEF_Checking();
 static void MEF_Ready();
 
+// Punteros a funciones de estado
+static void (*MEF_Functions[])(void) = {
+    MEF_Connecting, MEF_Fail, MEF_Checking, MEF_Ready
+};
+
 // ------------------------- Implementación de funciones públicas ---------------- //
 
 void MEF_Start(){
+    // Establecer estado inicial
     status = CONNECTING;
 }
 
 void MEF_Update(){
-    switch(status){
-        case CONNECTING: 
-            MEF_Connecting();
-            break;
-        case FAIL:
-            MEF_Fail();
-            break;
-        case CHECKING:
-            MEF_Checking();
-            break;
-        case READY:
-            MEF_Ready();
-            break;
-        default:
-            break;
-    }
+    // Invocar función correspondiente al estado actual
+    (*MEF_Functions[status])();
 }
 
-// ------------------------- Implementación de funciones privadas ------------------- //
+// --------------------- Implementación de funciones de estado ------------------- //
 
 static void MEF_Connecting(){
 
@@ -47,7 +41,7 @@ static void MEF_Connecting(){
     LED_EncenderAzul();
 
     // Mostrar mensaje "Conectando..." en el display
-    Display_Write("Conectando...");
+    Display_WriteMessage("Conectando...");
 
     // Establecer conexión con PC
     bool_t success = USB_Init();
@@ -66,7 +60,7 @@ static void MEF_Fail(){
         LED_EncenderRojo();
 
         // Mostrar mensaje "USB incorrecto" por display
-        Display_Write("USB incorrecto");
+        Display_WriteMessage("USB incorrecto");
 
         // Marcar como impreso para evitar reescribir en display
         printed = true;
@@ -77,11 +71,11 @@ static void MEF_Fail(){
 static void MEF_Checking(){
     static uint16_t attempts = 0;
     
-    // Alternar led azul cada 15 x 20 ms = 300 ms
-    LED_Alternar(15);
+    // Alternar led azul cada 25 x 20 ms = 500 ms
+    LED_Alternar(25);
 
-    // Realizar intento
-    bool_t success = USB_Update();
+    // Realizar intento de envío de datos
+    bool_t success = USB_Attempt();
     
     // Si fue exitoso, pasar a estado Ready
     // en caso contrario, luego de 500 intentos (10s), pasar a Fail
@@ -98,7 +92,7 @@ static void MEF_Ready(){
         LED_EncenderVerde();
 
         // Mostrar mensaje "Listo para jugar" por display
-        Display_Write("Listo para jugar");
+        Display_WriteMessage("Listo para jugar");
 
         // Marcar como impreso para evitar reescribir en display
         printed = true;
@@ -109,4 +103,10 @@ static void MEF_Ready(){
 
     // Pasar a estado FAIL si el envío no fue exitoso
     if (!success) status = FAIL;
+    else {
+        bool_t up, left, right, down;
+
+        Joystick_GetDirs(&up, &left, &right, &down);
+        Display_WriteDirs(up, left, right, down);
+    }
 }

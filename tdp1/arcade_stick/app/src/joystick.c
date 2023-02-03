@@ -1,6 +1,9 @@
+// Este módulo es el único que tiene acceso directo a las funciones del ADC
 #include "joystick.h"
 
-// Este módulo es el único que tiene acceso directo a las funciones del ADC
+// Variables privadas
+static bool_t up, left, right, down;
+
 
 void Joystick_Init(){
    // Inicializar y habilitar ADC
@@ -10,34 +13,28 @@ void Joystick_Init(){
    gpioInit(PIN_SW, GPIO_INPUT);
 }
 
-
 uint16_t Joystick_LeerX(){
-   return adcRead(PIN_VRX);
+   uint16_t raw = adcRead(PIN_VRX);
+
+   left = (raw < NEUTRO_MIN);
+   right = (raw > NEUTRO_MAX);
+
+   return raw;
 }
 
 
 uint16_t Joystick_LeerY(){
-   return adcRead(PIN_VRY);
+   uint16_t raw = adcRead(PIN_VRY);
+
+   up = (raw < NEUTRO_MIN);
+   down = (raw > NEUTRO_MAX);
+
+   return raw;
 }
 
-Joystick_Direccion Joystick_ProcesarDir(uint16_t valorEjeX, uint16_t valorEjeY){
-   /*
-   if (valorEjeX > NEUTRO_MIN && valorEjeX < NEUTRO_MAX){
-      if (valorEjeY > NEUTRO_MIN && valorEjeY < NEUTRO_MAX) return NONE;
-      else if (valorEjeY <= NEUTRO_MIN) return UP;
-      else return DOWN;
-   } else if (valorEjeX <= NEUTRO_MIN) return LEFT;
-   else return RIGHT;
-   */
-}
-
-
-void Joystick_LeerDirs(uint16_t valorEjeX, uint16_t valorEjeY, Joystick_Direccion* dirs){
-   if (valorEjeX > NEUTRO_MIN && valorEjeX < NEUTRO_MAX) dirs[0] = NONE;
-   else if (valorEjeX <= NEUTRO_MIN) dirs[0] = LEFT;
-   else dirs[0] = RIGHT;
-      
-   if (valorEjeY > NEUTRO_MIN && valorEjeY < NEUTRO_MAX) dirs[1] = NONE;
-   else if (valorEjeY <= NEUTRO_MIN) dirs[1] = UP;
-   else dirs[1] = DOWN;
+void Joystick_GetDirs(bool_t* dirUp, bool_t* dirLeft, bool_t* dirRight, bool_t* dirDown){
+   *dirUp = up;
+   *dirLeft = left;
+   *dirRight = right;
+   *dirDown = down;
 }

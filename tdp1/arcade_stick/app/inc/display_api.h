@@ -1,6 +1,6 @@
 /*============================================================================
  * Licencia:
- * Autor:      Calderón Sergio Leandro
+ * Autor:      Calderï¿½n Sergio Leandro
  * Fecha:      1 de noviembre de 2022
  *===========================================================================*/
 
@@ -24,10 +24,13 @@
    /*==================[declaraciones de datos externos]========================*/
 
 
-   /*==================[declaraciones de funciones públicas]====================*/
+   /*==================[declaraciones de funciones pï¿½blicas]====================*/
    
    void Display_Init();
-   void Display_Write(char* msg);
+
+   void Display_WriteMessage(char* msg);
+
+   void Display_WriteDirs(bool_t up, bool_t left, bool_t right, bool_t down);
 
 
 /*==================[end of file]============================================*/
