@@ -32,6 +32,9 @@
    // Lee el valor del eje Y y produce resultado digitañ entre 0 y 1023
    uint16_t Joystick_LeerY();
 
+   // Lee el estado actual del Switch, devolviendo true si está presionado
+   bool_t Joystick_LeerSwitch();
+
    void Joystick_GetDirs(bool_t* dirUp, bool_t* dirLeft, bool_t* dirRight, bool_t* dirDown);
    
    /*==================[end of file]============================================*/

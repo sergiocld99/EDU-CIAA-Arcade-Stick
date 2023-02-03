@@ -32,6 +32,10 @@ uint16_t Joystick_LeerY(){
    return raw;
 }
 
+bool_t Joystick_LeerSwitch(){
+   return !gpioRead(PIN_SW);
+}
+
 void Joystick_GetDirs(bool_t* dirUp, bool_t* dirLeft, bool_t* dirRight, bool_t* dirDown){
    *dirUp = up;
    *dirLeft = left;

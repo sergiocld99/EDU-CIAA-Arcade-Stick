@@ -29,7 +29,7 @@
    
    void Buttons_Init();
 
-
+   void Buttons_Read(bool_t* values);
 
 /*==================[end of file]============================================*/
 

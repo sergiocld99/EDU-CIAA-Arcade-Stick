@@ -22,12 +22,12 @@ static int8_t convertRawToSigned(uint16_t);
 void checkForPressedButtons(void* unused)
 {
    // Leer pulsadores y marcar seleccionados
-   if (!gpioRead(PIN_S1)) USB_MarcarBoton(0);
-   if (!gpioRead(PIN_S2)) USB_MarcarBoton(1);
-   if (!gpioRead(PIN_S3)) USB_MarcarBoton(2);
-   if (!gpioRead(PIN_S4)) USB_MarcarBoton(3);   
-   if (!gpioRead(PIN_S5)) USB_MarcarBoton(4);
-   if (!gpioRead(PIN_S6)) USB_MarcarBoton(5);
+   bool_t pulsados[CANT_PULSADORES];
+   Buttons_Read(pulsados);
+
+   for (uint8_t i=0; i<CANT_PULSADORES; i++){
+      if (pulsados[i]) USB_MarcarBoton(i);
+   }
 
    // Actualizar pulsadores activos en PC
    USB_PresionarBotones();
@@ -37,7 +37,7 @@ void checkForPressedButtons(void* unused)
    usbDeviceGamepadMove(Y_VALUE, 1);
    
    // Enviar estado del Switch
-   usbDeviceGamepadHat(!gpioRead(PIN_SW));
+   usbDeviceGamepadHat(Joystick_LeerSwitch());
 }
 
 

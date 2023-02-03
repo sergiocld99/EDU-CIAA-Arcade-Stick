@@ -7,9 +7,8 @@
    #include "usbd_gamepad.h"
 
    #include "joystick.h"      // lectura de ejes X,Y
+   #include "buttons.h"       // Lectura de pulsadores 
    #include "mapeoGpio.h"
-   
-   /*==================[definici�n de tipos]============================================*/
    
    
    /*==================[declaraciones de funciones públicas]====================*/
