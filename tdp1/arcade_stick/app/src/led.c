@@ -54,12 +54,12 @@ void LED_EncenderAzul(){
 // -------------------------- Funciones privadas -------------------------
 
 static void LED_Apagar(uint8_t id){
-   gpioWrite(id, OFF);
+   gpioWrite(id, APAGADO);
    apagado = true;
 }
 
 static void LED_Encender(uint8_t id){
-   gpioWrite(id, ON);
+   gpioWrite(id, ENCENDIDO);
    ledEncendido = id;
    apagado = false;
 }

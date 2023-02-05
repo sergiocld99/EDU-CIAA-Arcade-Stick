@@ -1,6 +1,6 @@
 /*============================================================================
  * Licencia:
- * Autor:      Calder�n Sergio Leandro
+ * Autor: 
  * Fecha:      1 de noviembre de 2022
  *===========================================================================*/
 
@@ -12,8 +12,22 @@
    #include "mapeoGpio.h"        // pines indicados para cada led
    #include "sapi.h"             // para gpioInit() y gpioWrite()
 
+   /*==================[macros]============================================*/
 
-   /*==================[declaraciones de funciones p�blicas]====================*/
+   // #define ANODO_COMUN
+   #define CATODO_COMUN
+
+   #ifdef ANODO_COMUN
+      // El terminal común es VCC
+      #define ENCENDIDO OFF
+      #define APAGADO ON
+   #else
+      // El terminal común es GND
+      #define ENCENDIDO ON
+      #define APAGADO OFF
+   #endif
+
+   /*==================[declaraciones de funciones públicas]====================*/
    
    // Configura los pines utilizados como salida
    void LED_Init();
