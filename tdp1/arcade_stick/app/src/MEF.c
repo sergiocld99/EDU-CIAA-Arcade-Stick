@@ -101,12 +101,14 @@ static void MEF_Ready(){
     // Realizar lectura de controles y enviarlo a PC
     bool_t success = USB_Update();
 
-    // Pasar a estado FAIL si el envío no fue exitoso
-    if (!success) status = FAIL;
-    else {
+    // Si fue exitoso, mostrar direcciones actuales en display
+    if (success){
         bool_t up, left, right, down;
 
         Joystick_GetDirs(&up, &left, &right, &down);
         Display_WriteDirs(up, left, right, down);
+    } else {
+        // Sino, pasar a estado de Fallo
+        status = FAIL;
     }
 }
