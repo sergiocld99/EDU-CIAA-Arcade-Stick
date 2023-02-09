@@ -1,7 +1,6 @@
 /*============================================================================
- * Autor:
- * Licencia:
- * Fecha:
+ * Autor:         Blanco Valentín, Bonifacio Lucas y Calderón Sergio
+ * Fecha:         6 de febrero de 2023
  *===========================================================================*/
 
 // Cabecera del archivo
@@ -23,9 +22,6 @@ int main( void )
 
    // Iniciar máquina de estados (Conectando...)
    MEF_Start();
-
-   // Tiempo preventivo post-conexión
-   // delay(500);
 
    // ---------- REPETIR POR SIEMPRE --------------------------
 
