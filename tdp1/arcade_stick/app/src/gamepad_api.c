@@ -17,7 +17,8 @@ static uint8_t aux_bitsPulsadores = 0x00;
 
 // Prototipos de funciones privadas
 static int8_t convertRawToSigned(uint16_t);
-
+static uint8_t USB_MarcarBoton(uint8_t numero);
+static void USB_PresionarBotones();
 
 void checkForPressedButtons(void* unused)
 {
@@ -78,8 +79,14 @@ bool_t USB_Attempt(){
    return usbDeviceGamepadTasks();
 }
 
+// ----------------------- Implementación de funciones privadas -----------------
 
-uint8_t USB_MarcarBoton(uint8_t numero){
+static int8_t convertRawToSigned(uint16_t raw){
+   uint8_t reduced = (uint8_t) (raw / 4);
+   return (int8_t) (reduced - 128);
+}
+
+static uint8_t USB_MarcarBoton(uint8_t numero){
    if (numero >= CANT_PULSADORES) return 0;
    
    // Los bits correspondientes a cada pulsador están
@@ -91,17 +98,10 @@ uint8_t USB_MarcarBoton(uint8_t numero){
    return 1;
 }
 
-void USB_PresionarBotones(){
+static void USB_PresionarBotones(){
    // Escribir el byte del reporte correspondiente a los pulsadores
    usbDeviceGamepadPress(aux_bitsPulsadores);
    
    // Una vez enviado, se reinicia para la próxima iteración
    aux_bitsPulsadores = 0x00;
-}
-
-// ----------------------- Implementación de funciones privadas -----------------
-
-static int8_t convertRawToSigned(uint16_t raw){
-   uint8_t reduced = (uint8_t) (raw / 4);
-   return (int8_t) (reduced - 128);
 }

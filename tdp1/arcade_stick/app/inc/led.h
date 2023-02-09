@@ -1,9 +1,3 @@
-/*============================================================================
- * Licencia:
- * Autor: 
- * Fecha:      1 de noviembre de 2022
- *===========================================================================*/
-
 #ifndef _LED_H_
    #define _LED_H_
 
@@ -31,14 +25,18 @@
    
    // Configura los pines utilizados como salida
    void LED_Init();
-   
-   void LED_Alternar(uint8_t periodo);
 
+   // Apaga los 3 diodos del LED
    void LED_ApagarTodos();
+
+   // Funciones para encender un color del LED
    void LED_EncenderRojo();
    void LED_EncenderVerde();
    void LED_EncenderAzul();
 
+
+   // Apaga o enciende el último LED modificado
+   void LED_Alternar(uint8_t periodo);
 
 /*==================[end of file]============================================*/
 

@@ -1,20 +1,12 @@
-/*============================================================================
- * Licencia:
- * Autor:
- * Fecha:
- *===========================================================================*/
-
 #ifndef _JOYSTICK_H_
    #define _JOYSTICK_H_
 
    /*==================[inclusiones]============================================*/
-   //#include "sapi.h"
+
    #include "sapi_adc.h"      // adcInit() y adcRead()
    #include "sapi_gpio.h"     // gpioInit()
 
    #include "mapeoGpio.h"     // define pines SW, VRx, VRy
-
-   #include <stdlib.h>
 
    /*==================[macros]=================================================*/
    
@@ -35,6 +27,7 @@
    // Lee el estado actual del Switch, devolviendo true si está presionado
    bool_t Joystick_LeerSwitch();
 
+   // Recupera las direcciones activadas en la última lectura de ejes
    void Joystick_GetDirs(bool_t* dirUp, bool_t* dirLeft, bool_t* dirRight, bool_t* dirDown);
    
    /*==================[end of file]============================================*/

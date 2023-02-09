@@ -1,12 +1,5 @@
-/*============================================================================
- * Licencia:
- * Autor:      Calder�n Sergio Leandro
- * Fecha:      1 de noviembre de 2022
- *===========================================================================*/
-
-// En este header se indica cual es
-// el pin de EDU CIAA utilizado para 
-// cada perif�rico del Arcade Stick
+// En este header se indica cual es el pin de EDU CIAA utilizado para 
+// cada periférico del Arcade Stick
 
 #ifndef _MAPEOGPIO_H_
    #define _MAPEOGPIO_H_
@@ -34,23 +27,23 @@
       #define PIN_S3    TEC3
       #define PIN_S4    TEC4
    #else
-      #define PIN_S1    GPIO3    // ex GPIO1
-      #define PIN_S2    GPIO7    // ex GPIO3
-      #define PIN_S3    GPIO6    // ex GPIO5
-      #define PIN_S4    GPIO1    // ex GPIO7
+      #define PIN_S1    GPIO3    
+      #define PIN_S2    GPIO7   
+      #define PIN_S3    GPIO6    
+      #define PIN_S4    GPIO1  
    #endif
    
-   #define PIN_S5    GPIO5    // ex GPIO8
-   #define PIN_S6    GPIO8    // ex GPIO6
+   #define PIN_S5    GPIO5   
+   #define PIN_S6    GPIO8   
 
    // ---------------------------- display --------------------------
 
    #define PIN_LCD_E    LCDEN
    #define PIN_LCD_RS   LCDRS
-   #define PIN_LCD_D4   LCD1     // ex LCD1
-   #define PIN_LCD_D5   LCD2     // ex LCD2
-   #define PIN_LCD_D6   LCD3     // ex LCD3
-   #define PIN_LCD_D7   LCD4     // ex LCD4
+   #define PIN_LCD_D4   LCD1    
+   #define PIN_LCD_D5   LCD2   
+   #define PIN_LCD_D6   LCD3     
+   #define PIN_LCD_D7   LCD4    
 
    // ---------------------------- leds -------------------------------
 
@@ -59,10 +52,9 @@
       #define PIN_LED_G    LEDG
       #define PIN_LED_B    LEDB
    #else
-      // Verificado
-      #define PIN_LED_R    T_FIL2      // ex GPIO0
-      #define PIN_LED_G    T_COL0      // ex GPIO2
-      #define PIN_LED_B    T_FIL3      // ex GPIO4
+      #define PIN_LED_R    T_FIL2  
+      #define PIN_LED_G    T_COL0 
+      #define PIN_LED_B    T_FIL3
    #endif
 
 

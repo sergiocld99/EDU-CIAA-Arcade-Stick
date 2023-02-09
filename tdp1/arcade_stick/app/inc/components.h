@@ -1,11 +1,3 @@
-// Este archivo incluye los archivos de cabecera de todos los componentes creados
-
-/*============================================================================
- * Licencia:
- * Autor:
- * Fecha:
- *===========================================================================*/
-
 #ifndef _COMPONENTS_H_
     #define _COMPONENTS_H_
 

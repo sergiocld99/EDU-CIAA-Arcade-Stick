@@ -13,16 +13,14 @@
    
    /*==================[declaraciones de funciones públicas]====================*/
    
+   // Configura el driver del gamepad para su utilización
    bool_t USB_Init();
 
-
+   // Realiza una lectura de los controles y los envía a la PC
    bool_t USB_Update();
 
-
+   // Realiza un envío de datos a la PC, devolviendo true si resultó exitoso
    bool_t USB_Attempt();
-   
-   uint8_t USB_MarcarBoton(uint8_t numero);
-   void USB_PresionarBotones();
 
    /*==================[end of file]============================================*/
    

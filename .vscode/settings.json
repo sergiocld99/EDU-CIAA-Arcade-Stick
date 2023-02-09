@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.pseudo": "java",
+        "*.ps": "java",
+        "*.sc": "java",
+        "stdlib.h": "c"
+    }
+}

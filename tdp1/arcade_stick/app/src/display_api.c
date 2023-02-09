@@ -13,10 +13,10 @@ static void Display_AddCustomChars();
 
 void Display_Init(){
    
-   // Inicializar LCD de 16x1 (caracteres x lineas) con cada caracter de 5x8 pixeles
+   // Inicializar LCD de 16x1 con cada carácter de 5x8 pixeles
    lcdInit( 16, 2, 5, 8 );
    
-   delay( LCD_STARTUP_WAIT_MS );   // No compatible con FreeRTOS
+   delay( LCD_STARTUP_WAIT_MS );
 
    // Apagar el cursor
    lcdCursorSet( LCD_CURSOR_OFF );
@@ -56,7 +56,6 @@ void Display_WriteDirs(bool_t up, bool_t left, bool_t right, bool_t down){
 // --------------------- Funciones privadas ------------------------ //
 
 static void Display_AddCustomChars(){
-   // Creado mediante Custom Character Generator - https://omerk.github.io/lcdchargen/
 
    const char upArrow[8] = {
 	   0b00000,
